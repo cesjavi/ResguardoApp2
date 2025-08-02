@@ -36,6 +36,7 @@ namespace ResguardoApp
             this.detectDrivesButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.backupButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             //
             // label1
@@ -110,11 +111,22 @@ namespace ResguardoApp
             this.detectDrivesButton.Text = "Detectar Discos";
             this.detectDrivesButton.UseVisualStyleBackColor = true;
             //
+            // backupButton
+            //
+            this.backupButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.backupButton.Location = new System.Drawing.Point(376, 242);
+            this.backupButton.Name = "backupButton";
+            this.backupButton.Size = new System.Drawing.Size(120, 65);
+            this.backupButton.TabIndex = 8;
+            this.backupButton.Text = "Realizar Resguardo";
+            this.backupButton.UseVisualStyleBackColor = true;
+            //
             // MainForm
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(509, 321);
+            this.Controls.Add(this.backupButton);
             this.Controls.Add(this.detectDrivesButton);
             this.Controls.Add(this.portableDisksListBox);
             this.Controls.Add(this.label2);
@@ -139,5 +151,6 @@ namespace ResguardoApp
         private System.Windows.Forms.Button detectDrivesButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button backupButton;
     }
 }
