@@ -128,8 +128,8 @@ namespace ResguardoApp
             portableDisksListBox.Items.Clear();
             try
             {
-                var drives = DriveInfo.GetDrives()
-                                      .Where(d => d.IsReady && d.DriveType == DriveType.Removable);
+                var drives = DriveInfo.GetDrives();
+                                      //.Where(d => d.IsReady);
 
                 foreach (var drive in drives)
                 {

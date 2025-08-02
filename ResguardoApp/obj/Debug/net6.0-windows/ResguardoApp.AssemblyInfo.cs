@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ResguardoApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca09b47f97435adb1d16e432b5ad6d0ee90e0841")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b61b8ca8a3aa95597cf38e144778fed8a172c3d2")]
 [assembly: System.Reflection.AssemblyProductAttribute("ResguardoApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ResguardoApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
