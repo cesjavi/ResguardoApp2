@@ -25,6 +25,7 @@ namespace ResguardoApp
             removeFolderButton.Click += RemoveFolderButton_Click;
             saveConfigButton.Click += SaveConfigButton_Click;
             detectDrivesButton.Click += DetectDrivesButton_Click;
+            backupButton.Click += BackupButton_Click;
         }
 
         private void MainForm_Load(object? sender, EventArgs e)
@@ -144,6 +145,81 @@ namespace ResguardoApp
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al detectar discos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BackupButton_Click(object? sender, EventArgs e)
+        {
+            PerformBackup();
+        }
+
+        private void PerformBackup()
+        {
+            // 1. Get source folders
+            var sourceFolders = backupFoldersListBox.Items.Cast<string>().ToList();
+            if (!sourceFolders.Any())
+            {
+                MessageBox.Show("No hay carpetas en la lista para respaldar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. Get destination drive
+            if (portableDisksListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Por favor, seleccione un disco de destino.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Extract drive letter (e.g., "D:\ (USB Drive)" -> "D:\")
+            var selectedDriveItem = portableDisksListBox.SelectedItem.ToString();
+            var driveName = selectedDriveItem.Split(' ')[0];
+            var destinationRoot = Path.Combine(driveName, "ResguardoApp");
+
+            try
+            {
+                // 3. Create root backup directory
+                Directory.CreateDirectory(destinationRoot);
+
+                // 4. Loop and synchronize
+                foreach (var sourceFolder in sourceFolders)
+                {
+                    var sourceDirInfo = new DirectoryInfo(sourceFolder);
+                    var destinationSubFolder = Path.Combine(destinationRoot, sourceDirInfo.Name);
+                    Directory.CreateDirectory(destinationSubFolder);
+
+                    SynchronizeDirectory(new DirectoryInfo(sourceFolder), new DirectoryInfo(destinationSubFolder));
+                }
+
+                MessageBox.Show("El proceso de resguardo ha comenzado.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error durante el resguardo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SynchronizeDirectory(DirectoryInfo source, DirectoryInfo destination)
+        {
+            // Sync all files
+            foreach (var sourceFile in source.GetFiles())
+            {
+                var destinationFile = new FileInfo(Path.Combine(destination.FullName, sourceFile.Name));
+
+                if (!destinationFile.Exists || sourceFile.LastWriteTime > destinationFile.LastWriteTime)
+                {
+                    sourceFile.CopyTo(destinationFile.FullName, true);
+                }
+            }
+
+            // Sync all subdirectories
+            foreach (var sourceSubDir in source.GetDirectories())
+            {
+                var destinationSubDir = new DirectoryInfo(Path.Combine(destination.FullName, sourceSubDir.Name));
+                if (!destinationSubDir.Exists)
+                {
+                    destinationSubDir.Create();
+                }
+                SynchronizeDirectory(sourceSubDir, destinationSubDir);
             }
         }
     }
