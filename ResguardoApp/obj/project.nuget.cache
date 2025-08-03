@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "YsmtaCucRKI=",
+  "dgSpecHash": "92kWJHMm5/U=",
   "success": true,
-  "projectFilePath": "d:\\sistemas\\ResguardoApp2\\ResguardoApp\\ResguardoApp.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\ResguardoApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\cesar\\.nuget\\packages\\system.codedom\\9.0.7\\system.codedom.9.0.7.nupkg.sha512",
+    "C:\\Users\\cesar\\.nuget\\packages\\system.management\\9.0.7\\system.management.9.0.7.nupkg.sha512",
+    "C:\\Users\\cesar\\.nuget\\packages\\microsoft.net.sdk.compilers.toolset\\9.0.303\\microsoft.net.sdk.compilers.toolset.9.0.303.nupkg.sha512"
+  ],
   "logs": []
 }

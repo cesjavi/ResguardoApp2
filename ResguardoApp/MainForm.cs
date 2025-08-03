@@ -33,56 +33,52 @@ namespace ResguardoApp
             LoadConfiguration();
         }
 
-        private void LoadConfiguration()
+        private AppConfig _currentConfig;
+
+private void LoadConfiguration()
+{
+    if (!File.Exists(_configFile))
+        return;
+
+    try
+    {
+        var json = File.ReadAllText(_configFile);
+        _currentConfig = JsonSerializer.Deserialize<AppConfig>(json);
+
+        if (_currentConfig?.BackupFolders != null)
         {
-            if (!File.Exists(_configFile))
-            {
-                return; // No config file yet, do nothing.
-            }
-
-            try
-            {
-                var json = File.ReadAllText(_configFile);
-                var config = JsonSerializer.Deserialize<AppConfig>(json);
-                if (config?.BackupFolders != null)
-                {
-                    backupFoldersListBox.Items.Clear();
-                    foreach (var folder in config.BackupFolders)
-                    {
-                        backupFoldersListBox.Items.Add(folder);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar la configuración: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            backupFoldersListBox.Items.Clear();
+            foreach (var folder in _currentConfig.BackupFolders)
+                backupFoldersListBox.Items.Add(folder);
         }
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"Error al cargar la configuración: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
+}
 
-        private void SaveConfiguration()
-        {
-            try
-            {
-                var config = new AppConfig
-                {
-                    BackupFolders = backupFoldersListBox.Items.Cast<string>().ToList()
-                };
+private void SaveConfiguration()
+{
+    try
+    {
+        _currentConfig ??= new AppConfig();
+        _currentConfig.BackupFolders = backupFoldersListBox.Items.Cast<string>().ToList();
 
-                // Ensure the directory exists
-                Directory.CreateDirectory(_configDir);
+        Directory.CreateDirectory(_configDir);
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        var json = JsonSerializer.Serialize(_currentConfig, options);
 
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                var json = JsonSerializer.Serialize(config, options);
+        File.WriteAllText(_configFile, json);
 
-                File.WriteAllText(_configFile, json);
+        MessageBox.Show("Configuración guardada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"Error al guardar la configuración: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
+}
 
-                MessageBox.Show("Configuración guardada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al guardar la configuración: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
         private void AddFolderButton_Click(object? sender, EventArgs e)
         {
@@ -154,49 +150,54 @@ namespace ResguardoApp
         }
 
         private void PerformBackup()
-        {
-            // 1. Get source folders
-            var sourceFolders = backupFoldersListBox.Items.Cast<string>().ToList();
-            if (!sourceFolders.Any())
-            {
-                MessageBox.Show("No hay carpetas en la lista para respaldar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+{
+    var sourceFolders = backupFoldersListBox.Items.Cast<string>().ToList();
+    if (!sourceFolders.Any())
+    {
+        MessageBox.Show("No hay carpetas en la lista para respaldar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        return;
+    }
 
-            // 2. Get destination drive
-            if (portableDisksListBox.SelectedItem == null)
-            {
-                MessageBox.Show("Por favor, seleccione un disco de destino.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+    if (portableDisksListBox.SelectedItem == null)
+    {
+        MessageBox.Show("Seleccione un disco de respaldo antes de continuar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        return;
+    }
 
-            // Extract drive letter (e.g., "D:\ (USB Drive)" -> "D:\")
-            var selectedDriveItem = portableDisksListBox.SelectedItem.ToString();
-            var driveName = selectedDriveItem.Split(' ')[0];
-            var destinationRoot = Path.Combine(driveName, "ResguardoApp");
+    var selectedDriveItem = portableDisksListBox.SelectedItem.ToString();
+    var driveLetter = selectedDriveItem.Split(' ')[0].Replace("\\", "").ToUpper();
 
-            try
-            {
-                // 3. Create root backup directory
-                Directory.CreateDirectory(destinationRoot);
+    var actual = DiscoUtil.ObtenerInfoDeDisco(driveLetter);
 
-                // 4. Loop and synchronize
-                foreach (var sourceFolder in sourceFolders)
-                {
-                    var sourceDirInfo = new DirectoryInfo(sourceFolder);
-                    var destinationSubFolder = Path.Combine(destinationRoot, sourceDirInfo.Name);
-                    Directory.CreateDirectory(destinationSubFolder);
+    if (_currentConfig?.DiscoRespaldo == null)
+    {
+        // Guardar por primera vez
+        _currentConfig.DiscoRespaldo = actual;
+        SaveConfiguration();
+        MessageBox.Show("Disco de respaldo registrado.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+    else if (_currentConfig.DiscoRespaldo.VolumeSerialNumber != actual.VolumeSerialNumber ||
+             _currentConfig.DiscoRespaldo.PNPDeviceID != actual.PNPDeviceID)
+    {
+        MessageBox.Show("El disco seleccionado no coincide con el disco de respaldo registrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return;
+    }
 
-                    SynchronizeDirectory(new DirectoryInfo(sourceFolder), new DirectoryInfo(destinationSubFolder));
-                }
+    var destinationRoot = Path.Combine($"{driveLetter}\\", "ResguardoApp");
+    // Ejecutar la sincronización para cada carpeta origen
+    foreach (var sourceFolder in sourceFolders)
+    {
+        var sourceDir = new DirectoryInfo(sourceFolder);
+        var destDir = new DirectoryInfo(Path.Combine(destinationRoot, sourceDir.Name));
+        if (!destDir.Exists)
+            destDir.Create();
+        SynchronizeDirectory(sourceDir, destDir);
+    }
 
-                MessageBox.Show("El proceso de resguardo ha comenzado.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ocurrió un error durante el resguardo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+    MessageBox.Show("Respaldo completado.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+} // <-- Aquí termina PerformBackup
+
+
 
         private void SynchronizeDirectory(DirectoryInfo source, DirectoryInfo destination)
         {
