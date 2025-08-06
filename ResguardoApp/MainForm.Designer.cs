@@ -121,11 +121,43 @@ namespace ResguardoApp
             this.backupButton.Text = "Realizar Resguardo";
             this.backupButton.UseVisualStyleBackColor = true;
             //
+            // backupTimePicker
+            //
+            this.backupTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.backupTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.backupTimePicker.Location = new System.Drawing.Point(12, 330);
+            this.backupTimePicker.Name = "backupTimePicker";
+            this.backupTimePicker.Size = new System.Drawing.Size(120, 23);
+            this.backupTimePicker.TabIndex = 9;
+            //
+            // installServiceButton
+            //
+            this.installServiceButton = new System.Windows.Forms.Button();
+            this.installServiceButton.Location = new System.Drawing.Point(376, 114);
+            this.installServiceButton.Name = "installServiceButton";
+            this.installServiceButton.Size = new System.Drawing.Size(120, 23);
+            this.installServiceButton.TabIndex = 10;
+            this.installServiceButton.Text = "Instalar Servicio";
+            this.installServiceButton.UseVisualStyleBackColor = true;
+            //
+            // label3
+            //
+            this.label3 = new System.Windows.Forms.Label();
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 312);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(107, 15);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Hora de Respaldo:";
+            //
             // MainForm
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(509, 321);
+            this.ClientSize = new System.Drawing.Size(509, 365);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.installServiceButton);
+            this.Controls.Add(this.backupTimePicker);
             this.Controls.Add(this.backupButton);
             this.Controls.Add(this.detectDrivesButton);
             this.Controls.Add(this.portableDisksListBox);
@@ -152,5 +184,8 @@ namespace ResguardoApp
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button backupButton;
+        private System.Windows.Forms.DateTimePicker backupTimePicker;
+        private System.Windows.Forms.Button installServiceButton;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration.Install;
 using System.IO;
 using System.Linq;
+using System.ServiceProcess;
 using System.Text.Json;
 using System.Windows.Forms;
 
@@ -26,6 +28,35 @@ namespace ResguardoApp
             saveConfigButton.Click += SaveConfigButton_Click;
             detectDrivesButton.Click += DetectDrivesButton_Click;
             backupButton.Click += BackupButton_Click;
+            installServiceButton.Click += InstallServiceButton_Click;
+        }
+
+        private void InstallServiceButton_Click(object? sender, EventArgs e)
+        {
+            try
+            {
+                if (IsServiceInstalled("ResguardoAppService"))
+                {
+                    // Uninstall the service
+                    ManagedInstallerClass.InstallHelper(new string[] { "/u", System.Reflection.Assembly.GetExecutingAssembly().Location });
+                    MessageBox.Show("Servicio desinstalado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    // Install the service
+                    ManagedInstallerClass.InstallHelper(new string[] { System.Reflection.Assembly.GetExecutingAssembly().Location });
+                    MessageBox.Show("Servicio instalado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al instalar/desinstalar el servicio: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool IsServiceInstalled(string serviceName)
+        {
+            return ServiceController.GetServices().Any(s => s.ServiceName == serviceName);
         }
 
         private void MainForm_Load(object? sender, EventArgs e)
@@ -51,6 +82,14 @@ private void LoadConfiguration()
             foreach (var folder in _currentConfig.BackupFolders)
                 backupFoldersListBox.Items.Add(folder);
         }
+
+        if (!string.IsNullOrEmpty(_currentConfig?.BackupTime))
+        {
+            if (DateTime.TryParse(_currentConfig.BackupTime, out var time))
+            {
+                backupTimePicker.Value = time;
+            }
+        }
     }
     catch (Exception ex)
     {
@@ -64,6 +103,7 @@ private void SaveConfiguration()
     {
         _currentConfig ??= new AppConfig();
         _currentConfig.BackupFolders = backupFoldersListBox.Items.Cast<string>().ToList();
+        _currentConfig.BackupTime = backupTimePicker.Value.ToString("HH:mm");
 
         Directory.CreateDirectory(_configDir);
         var options = new JsonSerializerOptions { WriteIndented = true };
@@ -151,30 +191,28 @@ private void SaveConfiguration()
 
         private void PerformBackup()
 {
-    var sourceFolders = backupFoldersListBox.Items.Cast<string>().ToList();
-    if (!sourceFolders.Any())
+    if (_currentConfig == null)
     {
-        MessageBox.Show("No hay carpetas en la lista para respaldar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        MessageBox.Show("La configuración no ha sido cargada o guardada.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         return;
     }
 
+    // Asegurarse de que el disco de respaldo está seleccionado y es el correcto
     if (portableDisksListBox.SelectedItem == null)
     {
         MessageBox.Show("Seleccione un disco de respaldo antes de continuar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         return;
     }
-
     var selectedDriveItem = portableDisksListBox.SelectedItem.ToString();
     var driveLetter = selectedDriveItem.Split(' ')[0].Replace("\\", "").ToUpper();
-
     var actual = DiscoUtil.ObtenerInfoDeDisco(driveLetter);
 
-    if (_currentConfig?.DiscoRespaldo == null)
+    if (_currentConfig.DiscoRespaldo == null)
     {
-        // Guardar por primera vez
         _currentConfig.DiscoRespaldo = actual;
         SaveConfiguration();
-        MessageBox.Show("Disco de respaldo registrado.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        MessageBox.Show("Disco de respaldo registrado. Ahora puede realizar el respaldo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        return;
     }
     else if (_currentConfig.DiscoRespaldo.VolumeSerialNumber != actual.VolumeSerialNumber ||
              _currentConfig.DiscoRespaldo.PNPDeviceID != actual.PNPDeviceID)
@@ -183,45 +221,8 @@ private void SaveConfiguration()
         return;
     }
 
-    var destinationRoot = Path.Combine($"{driveLetter}\\", "ResguardoApp");
-    // Ejecutar la sincronización para cada carpeta origen
-    foreach (var sourceFolder in sourceFolders)
-    {
-        var sourceDir = new DirectoryInfo(sourceFolder);
-        var destDir = new DirectoryInfo(Path.Combine(destinationRoot, sourceDir.Name));
-        if (!destDir.Exists)
-            destDir.Create();
-        SynchronizeDirectory(sourceDir, destDir);
-    }
-
+    BackupService.PerformBackup(_currentConfig);
     MessageBox.Show("Respaldo completado.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-} // <-- Aquí termina PerformBackup
-
-
-
-        private void SynchronizeDirectory(DirectoryInfo source, DirectoryInfo destination)
-        {
-            // Sync all files
-            foreach (var sourceFile in source.GetFiles())
-            {
-                var destinationFile = new FileInfo(Path.Combine(destination.FullName, sourceFile.Name));
-
-                if (!destinationFile.Exists || sourceFile.LastWriteTime > destinationFile.LastWriteTime)
-                {
-                    sourceFile.CopyTo(destinationFile.FullName, true);
-                }
-            }
-
-            // Sync all subdirectories
-            foreach (var sourceSubDir in source.GetDirectories())
-            {
-                var destinationSubDir = new DirectoryInfo(Path.Combine(destination.FullName, sourceSubDir.Name));
-                if (!destinationSubDir.Exists)
-                {
-                    destinationSubDir.Create();
-                }
-                SynchronizeDirectory(sourceSubDir, destinationSubDir);
-            }
-        }
+}
     }
 }
