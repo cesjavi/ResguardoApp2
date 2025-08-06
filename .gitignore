@@ -4,3 +4,5 @@
 /ResguardoApp/.vs
 /ResguardoApp/obj
 ResguardoApp/obj/ResguardoApp.csproj.nuget.g.targets
+
+.fake
