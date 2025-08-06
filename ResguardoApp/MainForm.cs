@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration.Install;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.ServiceProcess;
@@ -33,24 +33,49 @@ namespace ResguardoApp
 
         private void InstallServiceButton_Click(object? sender, EventArgs e)
         {
+            string serviceName = "ResguardoAppService";
+            string exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+
             try
             {
-                if (IsServiceInstalled("ResguardoAppService"))
+                if (IsServiceInstalled(serviceName))
                 {
                     // Uninstall the service
-                    ManagedInstallerClass.InstallHelper(new string[] { "/u", System.Reflection.Assembly.GetExecutingAssembly().Location });
+                    ExecuteCommand($"sc delete {serviceName}");
                     MessageBox.Show("Servicio desinstalado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
                     // Install the service
-                    ManagedInstallerClass.InstallHelper(new string[] { System.Reflection.Assembly.GetExecutingAssembly().Location });
+                    ExecuteCommand($"sc create {serviceName} binPath= \"{exePath}\" start= auto");
                     MessageBox.Show("Servicio instalado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al instalar/desinstalar el servicio: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ExecuteCommand(string command)
+        {
+            var processInfo = new ProcessStartInfo("cmd.exe", "/c " + command)
+            {
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true
+            };
+
+            var process = Process.Start(processInfo);
+            process.WaitForExit();
+
+            string output = process.StandardOutput.ReadToEnd();
+            string error = process.StandardError.ReadToEnd();
+
+            if (process.ExitCode != 0)
+            {
+                throw new Exception($"Error executing command: {command}\nOutput: {output}\nError: {error}");
             }
         }
 
