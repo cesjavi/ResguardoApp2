@@ -8,10 +8,20 @@ namespace ResguardoApp
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new MainForm());
+            if (Environment.UserInteractive)
+            {
+                // Run as a normal application
+                ApplicationConfiguration.Initialize();
+                Application.Run(new MainForm());
+            }
+            else
+            {
+                // Run as a service
+                using (var service = new ResguardoService())
+                {
+                    ServiceBase.Run(service);
+                }
+            }
         }
     }
 }
