@@ -104,16 +104,25 @@ namespace ResguardoApp
         private void LoadConfiguration()
         {
             if (!File.Exists(_configFile))
+            {
+                File.AppendAllText(
+                    _logFile,
+                    DateTime.Now + " - Config file not found: " + _configFile + Environment.NewLine);
                 return;
+            }
 
             try
             {
                 var json = File.ReadAllText(_configFile);
                 _config = JsonSerializer.Deserialize<AppConfig>(json);
             }
-            catch
+            catch (Exception ex)
             {
-                // Log error
+                File.AppendAllText(
+                    _logFile,
+                    DateTime.Now + Environment.NewLine +
+                    ex.ToString() + Environment.NewLine +
+                    (ex.InnerException?.ToString() ?? "") + Environment.NewLine);
             }
         }
     }
