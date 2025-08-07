@@ -168,7 +168,6 @@ namespace ResguardoApp
             installServiceButton.TabIndex = 10;
             installServiceButton.Text = "Instalar Servicio";
             installServiceButton.UseVisualStyleBackColor = true;
-            installServiceButton.Click += installServiceButton_Click_1;
             // 
             // label3
             // 
