@@ -25,10 +25,11 @@ namespace ResguardoApp
             this.Load += MainForm_Load;
             addFolderButton.Click += AddFolderButton_Click;
             removeFolderButton.Click += RemoveFolderButton_Click;
-            saveConfigButton.Click += SaveConfigButton_Click;
+            applyConfigButton.Click += ApplyConfigButton_Click;
             detectDrivesButton.Click += DetectDrivesButton_Click;
             backupButton.Click += BackupButton_Click;
             installServiceButton.Click += InstallServiceButton_Click;
+            backupTimePicker.ValueChanged += BackupTimePicker_ValueChanged;
         }
 
         private void InstallServiceButton_Click(object? sender, EventArgs e)
@@ -94,6 +95,7 @@ namespace ResguardoApp
         }
 
         private AppConfig _currentConfig;
+        private bool configChanged;
 
         private void LoadConfiguration()
         {
@@ -148,6 +150,12 @@ namespace ResguardoApp
             }
         }
 
+        private void MarkConfigChanged()
+        {
+            configChanged = true;
+            applyConfigButton.Enabled = true;
+        }
+
 
         private void AddFolderButton_Click(object? sender, EventArgs e)
         {
@@ -162,6 +170,7 @@ namespace ResguardoApp
                         if (!backupFoldersListBox.Items.Contains(dialog.SelectedPath))
                         {
                             backupFoldersListBox.Items.Add(dialog.SelectedPath);
+                            MarkConfigChanged();
                         }
                         else
                         {
@@ -177,6 +186,7 @@ namespace ResguardoApp
             if (backupFoldersListBox.SelectedItem != null)
             {
                 backupFoldersListBox.Items.Remove(backupFoldersListBox.SelectedItem);
+                MarkConfigChanged();
             }
             else
             {
@@ -184,9 +194,16 @@ namespace ResguardoApp
             }
         }
 
-        private void SaveConfigButton_Click(object? sender, EventArgs e)
+        private void ApplyConfigButton_Click(object? sender, EventArgs e)
         {
             SaveConfiguration();
+            configChanged = false;
+            applyConfigButton.Enabled = false;
+        }
+
+        private void BackupTimePicker_ValueChanged(object? sender, EventArgs e)
+        {
+            MarkConfigChanged();
         }
 
         private void DetectDrivesButton_Click(object? sender, EventArgs e)
