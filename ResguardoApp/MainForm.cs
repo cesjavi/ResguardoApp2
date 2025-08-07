@@ -225,6 +225,11 @@ namespace ResguardoApp
                 if (!portableDisksListBox.Items.Cast<string>().Any())
                 {
                     portableDisksListBox.Items.Add("No se encontraron discos extraíbles.");
+                    portableDisksListBox.Enabled = false;
+                }
+                else
+                {
+                    portableDisksListBox.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -252,8 +257,18 @@ namespace ResguardoApp
                 MessageBox.Show("Seleccione un disco de respaldo antes de continuar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             var selectedDriveItem = portableDisksListBox.SelectedItem.ToString();
-            var driveLetter = selectedDriveItem.Split(' ')[0].Replace("\\", "").ToUpper();
+            var drive = DriveInfo.GetDrives()
+                .FirstOrDefault(d => selectedDriveItem.StartsWith(d.Name, StringComparison.OrdinalIgnoreCase));
+
+            if (drive == null)
+            {
+                MessageBox.Show("Seleccione un disco de respaldo válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var driveLetter = drive.Name.Replace("\\", "").ToUpper();
             var actual = DiscoUtil.ObtenerInfoDeDisco(driveLetter);
 
             if (_currentConfig.DiscoRespaldo == null)
