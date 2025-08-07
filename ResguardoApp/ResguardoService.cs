@@ -96,8 +96,23 @@ namespace ResguardoApp
 
             if (now >= scheduled && (_lastBackupDate == null || _lastBackupDate.Value.Date < now.Date))
             {
-                BackupService.PerformBackup(_config);
-                _lastBackupDate = now.Date;
+                try
+                {
+                    BackupService.PerformBackup(_config);
+                    _lastBackupDate = now.Date;
+                }
+                catch (Exception ex)
+                {
+                    File.AppendAllText(_logFile,
+                        DateTime.Now + Environment.NewLine +
+                        ex.ToString() + Environment.NewLine +
+                        (ex.InnerException?.ToString() ?? "") + Environment.NewLine);
+                }
+            }
+            else
+            {
+                File.AppendAllText(_logFile,
+                    $"{DateTime.Now} - Resguardo omitido: no es la hora programada ({_config.BackupTime}).{Environment.NewLine}");
             }
         }
 
