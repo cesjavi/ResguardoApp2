@@ -6,7 +6,7 @@ ResguardoApp is a simple Windows Forms application for managing a list of folder
 
 -   **Add Folders**: Easily add folders to your backup list using a folder selection dialog.
 -   **Remove Folders**: Remove folders you no longer need to back up.
--   **Save Configuration**: Save your list of backup folders to a `config.json` file. The configuration is stored in the user's local application data folder (`%LOCALAPPDATA%/ResguardoApp`).
+-   **Save Configuration**: Save your list of backup folders to a `config.json` file located in the same directory as the application executable. Both the desktop application and the service expect `config.json` to reside alongside their executables.
 -   **Automatic Loading**: The application automatically loads your saved configuration on startup.
 -   **Detect Portable Drives**: A dedicated feature to list all connected removable drives (e.g., USB flash drives, external hard drives).
 -   **Perform Backup**: Synchronize the selected folders to a chosen removable drive. The backup process is incremental, only copying new or modified files.
