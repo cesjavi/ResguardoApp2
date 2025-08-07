@@ -42,6 +42,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Service1.cs">
@@ -52,6 +53,20 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\ResguardoApp\AppConfig.cs">
+      <Link>AppConfig.cs</Link>
+    </Compile>
+    <Compile Include="..\ResguardoApp\DiscoRespaldoInfo.cs">
+      <Link>DiscoRespaldoInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\ResguardoApp\BackupService.cs">
+      <Link>BackupService.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="7.0.3" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
