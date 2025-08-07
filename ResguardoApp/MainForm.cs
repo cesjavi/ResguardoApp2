@@ -274,9 +274,5 @@ namespace ResguardoApp
             MessageBox.Show("Respaldo completado.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void installServiceButton_Click_1(object sender, EventArgs e)
-        {
-
-        }
     }
 }
