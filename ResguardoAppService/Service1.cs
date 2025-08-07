@@ -34,6 +34,11 @@ namespace ResguardoAppService
             _timer.Elapsed += OnTimer;
 
             LoadConfiguration();
+            if (_config?.ForceBackupOnStart == true)
+            {
+                BackupService.PerformBackup(_config);
+                _lastBackupDate = DateTime.Now.Date;
+            }
 
             _timer.Start();
 
@@ -71,6 +76,18 @@ namespace ResguardoAppService
                 BackupService.PerformBackup(_config);
                 _lastBackupDate = now.Date;
             }
+        }
+
+        public void ForceBackup()
+        {
+            LoadConfiguration();
+            if (_config == null)
+            {
+                return;
+            }
+
+            BackupService.PerformBackup(_config);
+            _lastBackupDate = DateTime.Now.Date;
         }
 
         private void LoadConfiguration()

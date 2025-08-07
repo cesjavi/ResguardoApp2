@@ -7,6 +7,7 @@ namespace ResguardoApp
         public List<string> BackupFolders { get; set; } = new List<string>();
         public DiscoRespaldoInfo DiscoRespaldo { get; set; }
         public string BackupTime { get; set; }
+        public bool ForceBackupOnStart { get; set; }
     }
 
     public class DiscoRespaldoInfo

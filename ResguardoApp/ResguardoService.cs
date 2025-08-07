@@ -35,6 +35,11 @@ namespace ResguardoApp
                 }
 
                 _timer.Interval = 60000; // 1 minuto
+                if (_config?.ForceBackupOnStart == true)
+                {
+                    BackupService.PerformBackup(_config);
+                    _lastBackupDate = DateTime.Now.Date;
+                }
                 _timer.Start();
             }
             catch (Exception ex)
@@ -114,6 +119,18 @@ namespace ResguardoApp
                 File.AppendAllText(_logFile,
                     $"{DateTime.Now} - Resguardo omitido: no es la hora programada ({_config.BackupTime}).{Environment.NewLine}");
             }
+        }
+
+        public void ForceBackup()
+        {
+            LoadConfiguration();
+            if (_config == null)
+            {
+                return;
+            }
+
+            BackupService.PerformBackup(_config);
+            _lastBackupDate = DateTime.Now.Date;
         }
 
         private void LoadConfiguration()
