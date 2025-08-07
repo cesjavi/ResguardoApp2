@@ -18,7 +18,7 @@ namespace ResguardoApp
         {
             InitializeComponent();
             // Define configuration path
-            _configDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ResguardoApp");
+            _configDir = AppDomain.CurrentDomain.BaseDirectory;
             _configFile = Path.Combine(_configDir, "config.json");
 
             // Wire up events
