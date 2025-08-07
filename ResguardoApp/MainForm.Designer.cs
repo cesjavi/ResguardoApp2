@@ -28,6 +28,7 @@ namespace ResguardoApp
         /// </summary>
         private void InitializeComponent()
         {
+            configPanel = new Panel();
             backupFoldersListBox = new ListBox();
             addFolderButton = new Button();
             removeFolderButton = new Button();
@@ -40,10 +41,21 @@ namespace ResguardoApp
             backupTimePicker = new DateTimePicker();
             installServiceButton = new Button();
             label3 = new Label();
+            configPanel.SuspendLayout();
             SuspendLayout();
-            // 
+            //
+            // configPanel
+            //
+            configPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            configPanel.Location = new Point(0, 0);
+            configPanel.Margin = new Padding(4, 5, 4, 5);
+            configPanel.Name = "configPanel";
+            configPanel.Size = new Size(727, 608);
+            configPanel.TabIndex = 12;
+            //
             // backupFoldersListBox
             // 
+            backupFoldersListBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             backupFoldersListBox.FormattingEnabled = true;
             backupFoldersListBox.ItemHeight = 25;
             backupFoldersListBox.Location = new Point(17, 45);
@@ -54,6 +66,7 @@ namespace ResguardoApp
             // 
             // addFolderButton
             // 
+            addFolderButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             addFolderButton.Location = new Point(537, 45);
             addFolderButton.Margin = new Padding(4, 5, 4, 5);
             addFolderButton.Name = "addFolderButton";
@@ -64,6 +77,7 @@ namespace ResguardoApp
             // 
             // removeFolderButton
             // 
+            removeFolderButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             removeFolderButton.Location = new Point(537, 93);
             removeFolderButton.Margin = new Padding(4, 5, 4, 5);
             removeFolderButton.Name = "removeFolderButton";
@@ -74,7 +88,7 @@ namespace ResguardoApp
             // 
             // applyConfigButton
             //
-            applyConfigButton.Enabled = false;
+            applyConfigButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             applyConfigButton.Location = new Point(537, 142);
             applyConfigButton.Margin = new Padding(4, 5, 4, 5);
             applyConfigButton.Name = "applyConfigButton";
@@ -105,6 +119,7 @@ namespace ResguardoApp
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             label1.AutoSize = true;
             label1.Location = new Point(17, 15);
             label1.Margin = new Padding(4, 0, 4, 0);
@@ -136,6 +151,7 @@ namespace ResguardoApp
             // 
             // backupTimePicker
             // 
+            backupTimePicker.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             backupTimePicker.Format = DateTimePickerFormat.Time;
             backupTimePicker.Location = new Point(17, 550);
             backupTimePicker.Margin = new Padding(4, 5, 4, 5);
@@ -156,6 +172,7 @@ namespace ResguardoApp
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label3.AutoSize = true;
             label3.Location = new Point(17, 520);
             label3.Margin = new Padding(4, 0, 4, 0);
@@ -163,27 +180,30 @@ namespace ResguardoApp
             label3.Size = new Size(158, 25);
             label3.TabIndex = 11;
             label3.Text = "Hora de Respaldo:";
-            // 
+            configPanel.Controls.Add(backupTimePicker);
+            configPanel.Controls.Add(label3);
+            configPanel.Controls.Add(applyConfigButton);
+            configPanel.Controls.Add(removeFolderButton);
+            configPanel.Controls.Add(addFolderButton);
+            configPanel.Controls.Add(backupFoldersListBox);
+            configPanel.Controls.Add(label1);
+            //
             // MainForm
-            // 
+            //
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(727, 608);
-            Controls.Add(label3);
+            Controls.Add(configPanel);
             Controls.Add(installServiceButton);
-            Controls.Add(backupTimePicker);
             Controls.Add(backupButton);
             Controls.Add(detectDrivesButton);
             Controls.Add(portableDisksListBox);
             Controls.Add(label2);
-            Controls.Add(applyConfigButton);
-            Controls.Add(removeFolderButton);
-            Controls.Add(addFolderButton);
-            Controls.Add(backupFoldersListBox);
-            Controls.Add(label1);
             Margin = new Padding(4, 5, 4, 5);
             Name = "MainForm";
             Text = "ResguardoApp";
+            configPanel.ResumeLayout(false);
+            configPanel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -202,5 +222,6 @@ namespace ResguardoApp
         private System.Windows.Forms.DateTimePicker backupTimePicker;
         private System.Windows.Forms.Button installServiceButton;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel configPanel;
     }
 }
