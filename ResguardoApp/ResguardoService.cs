@@ -12,6 +12,7 @@ namespace ResguardoApp
         private AppConfig _config;
         private readonly string _configFile;
         private readonly string _logFile;
+        private DateTime? _lastBackupDate;
 
         public ResguardoService()
         {
@@ -33,6 +34,11 @@ namespace ResguardoApp
                 }
 
                 _timer.Interval = 60000; // 1 minuto
+                if (_config?.ForceBackupOnStart == true)
+                {
+                    BackupService.PerformBackup(_config);
+                    _lastBackupDate = DateTime.Now.Date;
+                }
                 _timer.Start();
             }
             catch (Exception ex)
@@ -76,6 +82,18 @@ namespace ResguardoApp
                 BackupService.PerformBackup(_config);
                 _lastBackupDate = now.Date;
             }
+        }
+
+        public void ForceBackup()
+        {
+            LoadConfiguration();
+            if (_config == null)
+            {
+                return;
+            }
+
+            BackupService.PerformBackup(_config);
+            _lastBackupDate = DateTime.Now.Date;
         }
 
         private void LoadConfiguration()

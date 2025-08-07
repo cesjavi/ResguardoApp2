@@ -10,6 +10,7 @@ ResguardoApp is a simple Windows Forms application for managing a list of folder
 -   **Automatic Loading**: The application automatically loads your saved configuration on startup.
 -   **Detect Portable Drives**: A dedicated feature to list all connected removable drives (e.g., USB flash drives, external hard drives).
 -   **Perform Backup**: Synchronize the selected folders to a chosen removable drive. The backup process is incremental, only copying new or modified files.
+-   **Force Backup**: Set `forceBackupOnStart` in `config.json` to `true` to run a backup when the service starts, or call the service's public `ForceBackup` method to trigger a backup on demand.
 
 ## Requirements
 
@@ -40,5 +41,10 @@ This project is a standard .NET WinForms application. You can build and run it u
 2.  **Open the `ResguardoApp.sln` file** in Visual Studio (or open the `ResguardoApp` folder).
 3.  **Set the startup project** to `ResguardoApp`.
 4.  **Press `F5`** to build and run the application in debug mode, or use the "Build" menu to create a release version.
+
+### Manual Backup Execution
+
+-   **Run on Service Start**: Edit `config.json` and set `forceBackupOnStart` to `true`. The service will execute a backup immediately after loading the configuration.
+-   **Run On Demand**: Use the `ForceBackup` method exposed by the service to perform a backup at any time without waiting for the scheduled time.
 
 **Important Note**: This is a Windows Forms application and can only be compiled and run on a Windows operating system.

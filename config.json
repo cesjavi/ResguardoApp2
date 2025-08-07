@@ -1,0 +1,10 @@
+{
+  "backupFolders": ["C:\\Path\\To\\Folder"],
+  "discoRespaldo": {
+    "letra": "E:\\",
+    "volumeSerialNumber": "",
+    "pnpDeviceID": ""
+  },
+  "backupTime": "02:00:00",
+  "forceBackupOnStart": false
+}
