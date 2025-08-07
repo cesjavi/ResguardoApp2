@@ -194,12 +194,15 @@ private void SaveConfiguration()
             portableDisksListBox.Items.Clear();
             try
             {
-                var drives = DriveInfo.GetDrives();
-                                      //.Where(d => d.IsReady);
+                var drives = DriveInfo.GetDrives()
+                    .Where(d => d.DriveType == DriveType.Removable && d.IsReady);
 
                 foreach (var drive in drives)
                 {
-                    portableDisksListBox.Items.Add($"{drive.Name} ({drive.VolumeLabel})");
+                    var label = string.IsNullOrWhiteSpace(drive.VolumeLabel)
+                        ? "Sin etiqueta"
+                        : drive.VolumeLabel;
+                    portableDisksListBox.Items.Add($"{drive.Name} ({label})");
                 }
 
                 if (!portableDisksListBox.Items.Cast<string>().Any())
