@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ResguardoApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f025be8c6d1d9562b080ba91b79dab53a0438355")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4cb1688a46b034f0d49b12237e707575420151f8")]
 [assembly: System.Reflection.AssemblyProductAttribute("ResguardoApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ResguardoApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
