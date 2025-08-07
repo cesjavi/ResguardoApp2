@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.ServiceProcess;
+using System.Diagnostics;
 using System.Text.Json;
 using System.Timers;
 
@@ -38,11 +39,32 @@ namespace ResguardoApp
             }
             catch (Exception ex)
             {
-                File.AppendAllText(_logFile,
-                    
-                    DateTime.Now + Environment.NewLine +
-                    ex.ToString() + Environment.NewLine +
-                    (ex.InnerException?.ToString() ?? "") + Environment.NewLine);
+                try
+                {
+                    var logDir = Path.GetDirectoryName(_logFile);
+                    if (!string.IsNullOrEmpty(logDir))
+                    {
+                        Directory.CreateDirectory(logDir);
+                    }
+
+                    File.AppendAllText(_logFile,
+
+                        DateTime.Now + Environment.NewLine +
+                        ex.ToString() + Environment.NewLine +
+                        (ex.InnerException?.ToString() ?? "") + Environment.NewLine);
+                }
+                catch (Exception logEx)
+                {
+                    try
+                    {
+                        EventLog.WriteEntry(ServiceName, $"Failed to write to log file: {logEx}", EventLogEntryType.Error);
+                    }
+                    catch
+                    {
+                        // Ignored: nothing else we can do if logging fails
+                    }
+                }
+
                 throw; // Dejá que el servicio falle igual para que el Event Viewer lo registre
             }
         }
