@@ -4,6 +4,8 @@ VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResguardoApp", "ResguardoApp.csproj", "{283D4E28-7517-E7F9-2B12-01C372CD478D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResguardoAppService", "..\ResguardoAppService\ResguardoAppService.csproj", "{72CE0C88-1063-4A62-B74B-6FBF9779E331}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,6 +16,10 @@ Global
 		{283D4E28-7517-E7F9-2B12-01C372CD478D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{283D4E28-7517-E7F9-2B12-01C372CD478D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{283D4E28-7517-E7F9-2B12-01C372CD478D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72CE0C88-1063-4A62-B74B-6FBF9779E331}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72CE0C88-1063-4A62-B74B-6FBF9779E331}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72CE0C88-1063-4A62-B74B-6FBF9779E331}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72CE0C88-1063-4A62-B74B-6FBF9779E331}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

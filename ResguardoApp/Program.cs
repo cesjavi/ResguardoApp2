@@ -1,3 +1,5 @@
+using System.ServiceProcess;
+
 namespace ResguardoApp
 {
     internal static class Program
