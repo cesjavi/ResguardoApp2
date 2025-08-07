@@ -25,7 +25,7 @@ namespace ResguardoApp
             this.Load += MainForm_Load;
             addFolderButton.Click += AddFolderButton_Click;
             removeFolderButton.Click += RemoveFolderButton_Click;
-            applyConfigButton.Click +=ApplyConfigButton_Click;
+            applyConfigButton.Click += ApplyConfigButton_Click;
             detectDrivesButton.Click += DetectDrivesButton_Click;
             backupButton.Click += BackupButton_Click;
             installServiceButton.Click += InstallServiceButton_Click;
@@ -303,5 +303,9 @@ namespace ResguardoApp
             MessageBox.Show("Respaldo completado.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void installServiceButton_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

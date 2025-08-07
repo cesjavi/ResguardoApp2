@@ -4,7 +4,7 @@ using System.ServiceProcess;
 using System.Diagnostics;
 using System.Timers;
 using ResguardoApp;
-using System.Text.Json;
+//using System.Text.Json;
 
 namespace ResguardoAppService
 {
@@ -103,7 +103,7 @@ namespace ResguardoAppService
             try
             {
                 var json = File.ReadAllText(configFile);
-                _config = JsonSerializer.Deserialize<AppConfig>(json);
+                _config = System.Text.Json.JsonSerializer.Deserialize<AppConfig>(json);
             }
             catch
             {

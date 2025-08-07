@@ -46,22 +46,13 @@
           "dependencies": {
             "System.Text.Json": {
               "target": "Package",
-              "version": "[7.0.3, )"
+              "version": "[9.0.8, )"
             }
           }
         }
       },
       "runtimes": {
-        "win": {
-          "#import": []
-        },
-        "win-arm64": {
-          "#import": []
-        },
         "win-x64": {
-          "#import": []
-        },
-        "win-x86": {
           "#import": []
         }
       }
