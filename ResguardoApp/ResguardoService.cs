@@ -11,6 +11,7 @@ namespace ResguardoApp
         private System.Timers.Timer _timer;
         private AppConfig _config;
         private readonly string _configFile;
+        private DateTime? _lastBackupDate;
 
         public ResguardoService()
         {
@@ -40,7 +41,7 @@ namespace ResguardoApp
                     DateTime.Now + Environment.NewLine +
                     ex.ToString() + Environment.NewLine +
                     (ex.InnerException?.ToString() ?? "") + Environment.NewLine);
-                throw; // Dejá que el servicio falle igual para que el Event Viewer lo registre
+                throw; // DejÃ¡ que el servicio falle igual para que el Event Viewer lo registre
             }
         }
 
@@ -61,9 +62,18 @@ namespace ResguardoApp
                 return;
             }
 
-            if (DateTime.Now.ToString("HH:mm") == _config.BackupTime)
+            if (!TimeSpan.TryParse(_config.BackupTime, out var backupTime))
+            {
+                return;
+            }
+
+            var now = DateTime.Now;
+            var scheduled = now.Date.Add(backupTime);
+
+            if (now >= scheduled && (_lastBackupDate == null || _lastBackupDate.Value.Date < now.Date))
             {
                 BackupService.PerformBackup(_config);
+                _lastBackupDate = now.Date;
             }
         }
 
