@@ -20,11 +20,12 @@ namespace ResguardoApp
 
         public static DiscoRespaldoInfo ObtenerInfoDeDisco(string letra)
         {
-            var info = new DiscoRespaldoInfo { Letra = letra.ToUpper() };
+            var letraNormalizada = letra.ToUpper().Replace(":", string.Empty).Replace("\\", string.Empty);
+            var info = new DiscoRespaldoInfo { Letra = letraNormalizada + ":" };
 
             try
             {
-                string rootPath = letra.ToUpper() + @":\";
+                string rootPath = letraNormalizada + @":\";
                 bool success = GetVolumeInformation(
                     rootPath,
                     null, 0,
@@ -45,7 +46,7 @@ namespace ResguardoApp
             catch (Exception ex)
             {
                 info.VolumeSerialNumber = "EXCEPTION";
-                // log ex.Message si querés
+                // log ex.Message si querÃ©s
             }
 
             return info;
