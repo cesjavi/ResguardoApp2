@@ -11,11 +11,13 @@ namespace ResguardoApp
         private System.Timers.Timer _timer;
         private AppConfig _config;
         private readonly string _configFile;
+        private readonly string _logFile;
 
         public ResguardoService()
         {
             ServiceName = "ResguardoAppService";
             _configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
+            _logFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_resguardo_service.txt");
         }
 
         protected override void OnStart(string[] args)
@@ -35,12 +37,12 @@ namespace ResguardoApp
             }
             catch (Exception ex)
             {
-                File.AppendAllText(@"error_resguardo_service.txt", 
+                File.AppendAllText(_logFile,
                     
                     DateTime.Now + Environment.NewLine +
                     ex.ToString() + Environment.NewLine +
                     (ex.InnerException?.ToString() ?? "") + Environment.NewLine);
-                throw; // Dej· que el servicio falle igual para que el Event Viewer lo registre
+                throw; // Dej√° que el servicio falle igual para que el Event Viewer lo registre
             }
         }
 
