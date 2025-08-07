@@ -1,37 +1,54 @@
 using System;
-using System.Management;
-namespace ResguardoApp;
-/*public static class DiscoUtil
+using System.Runtime.InteropServices;
+
+namespace ResguardoApp
 {
-  * public static DiscoRespaldoInfo ObtenerInfoDeDisco(string letra)
+    
+
+    public static class DiscoUtil
     {
-        var info = new DiscoRespaldoInfo { Letra = letra.ToUpper() };
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        static extern bool GetVolumeInformation(
+            string lpRootPathName,
+            System.Text.StringBuilder lpVolumeNameBuffer,
+            int nVolumeNameSize,
+            out uint lpVolumeSerialNumber,
+            out uint lpMaximumComponentLength,
+            out uint lpFileSystemFlags,
+            System.Text.StringBuilder lpFileSystemNameBuffer,
+            int nFileSystemNameSize);
 
-        using (var mo = new ManagementObject($"win32_logicaldisk.deviceid=\"{letra.ToUpper()}:\""))
+        public static DiscoRespaldoInfo ObtenerInfoDeDisco(string letra)
         {
-            mo.Get();
-            info.VolumeSerialNumber = mo["VolumeSerialNumber"]?.ToString();
-        }
+            var info = new DiscoRespaldoInfo { Letra = letra.ToUpper() };
 
-        var query = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
-        foreach (ManagementObject drive in query.Get())
-        {
-            var partitions = drive.GetRelated("Win32_DiskPartition");
-            foreach (ManagementObject partition in partitions)
+            try
             {
-                var logicalDisks = partition.GetRelated("Win32_LogicalDisk");
-                foreach (ManagementObject ld in logicalDisks)
+                string rootPath = letra.ToUpper() + @":\";
+                bool success = GetVolumeInformation(
+                    rootPath,
+                    null, 0,
+                    out uint serialNumber,
+                    out _, out _,
+                    null, 0
+                );
+
+                if (success)
                 {
-                    if (ld["DeviceID"].ToString().Equals($"{letra.ToUpper()}:"))
-                    {
-                        info.PNPDeviceID = drive["PNPDeviceID"]?.ToString();
-                        return info;
-                    }
+                    info.VolumeSerialNumber = serialNumber.ToString("X");
+                }
+                else
+                {
+                    info.VolumeSerialNumber = "ERROR";
                 }
             }
-        }
+            catch (Exception ex)
+            {
+                info.VolumeSerialNumber = "EXCEPTION";
+                // log ex.Message si quers
+            }
 
-        return info;
+            return info;
+        }
     }
 }
-*/
