@@ -22,15 +22,22 @@ namespace ResguardoApp
         protected override void OnStart(string[] args)
         {
             LoadConfiguration();
-            _timer = new System.Timers.Timer();
+
+            if (_timer == null)
+            {
+                _timer = new System.Timers.Timer();
+                _timer.Elapsed += new ElapsedEventHandler(OnTimer);
+            }
+
             _timer.Interval = 60000; // 1 minute
-            _timer.Elapsed += new ElapsedEventHandler(OnTimer);
             _timer.Start();
         }
 
         protected override void OnStop()
         {
-            _timer.Stop();
+            _timer?.Stop();
+            _timer?.Dispose();
+            _timer = null;
         }
 
         private void OnTimer(object sender, ElapsedEventArgs args)
