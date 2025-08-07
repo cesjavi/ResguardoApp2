@@ -263,11 +263,25 @@ namespace ResguardoApp
                 MessageBox.Show("Disco de respaldo registrado. Ahora puede realizar el respaldo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            else if (_currentConfig.DiscoRespaldo.VolumeSerialNumber != actual.VolumeSerialNumber ||
-                     _currentConfig.DiscoRespaldo.PNPDeviceID != actual.PNPDeviceID)
+            else
             {
-                MessageBox.Show("El disco seleccionado no coincide con el disco de respaldo registrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                bool serialMatch = string.Equals(
+                    _currentConfig.DiscoRespaldo.VolumeSerialNumber,
+                    actual.VolumeSerialNumber,
+                    StringComparison.OrdinalIgnoreCase);
+
+                bool pnpMatch = true;
+                if (!string.IsNullOrEmpty(_currentConfig.DiscoRespaldo.PNPDeviceID) &&
+                    !string.IsNullOrEmpty(actual.PNPDeviceID))
+                {
+                    pnpMatch = _currentConfig.DiscoRespaldo.PNPDeviceID == actual.PNPDeviceID;
+                }
+
+                if (!serialMatch || !pnpMatch)
+                {
+                    MessageBox.Show("El disco seleccionado no coincide con el disco de respaldo registrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
 
             BackupService.PerformBackup(_currentConfig);
