@@ -12,12 +12,13 @@ namespace ResguardoApp
         private AppConfig _config;
         private readonly string _configFile;
         private readonly string _logFile;
+        private DateTime? _lastBackupDate;
 
         public ResguardoService()
         {
             ServiceName = "ResguardoAppService";
             _configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
-            _logFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_resguardo_service.txt");
+            _logFile = @"D:\logs\error_resguardo_service.txt";
         }
 
         protected override void OnStart(string[] args)
