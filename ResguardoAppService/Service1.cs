@@ -1,30 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.ServiceProcess;
 
 namespace ResguardoAppService
 {
-    public class Program
+    public partial class Service1 : ServiceBase
     {
-        public static void Main()
+        public Service1()
         {
-            ServiceBase.Run(new ResguardoService());
-        }
-    }
-
-    public class ResguardoService : ServiceBase
-    {
-        public ResguardoService()
-        {
-            this.ServiceName = "ResguardoAppService";
+            InitializeComponent();
         }
 
         protected override void OnStart(string[] args)
@@ -39,3 +21,4 @@ namespace ResguardoAppService
         }
     }
 }
+
