@@ -25,7 +25,7 @@ namespace ResguardoApp
             this.Load += MainForm_Load;
             addFolderButton.Click += AddFolderButton_Click;
             removeFolderButton.Click += RemoveFolderButton_Click;
-            applyConfigButton.Click += SaveConfigButton_Click;
+            applyConfigButton.Click +=ApplyConfigButton_Click;
             detectDrivesButton.Click += DetectDrivesButton_Click;
             backupButton.Click += BackupButton_Click;
             installServiceButton.Click += InstallServiceButton_Click;

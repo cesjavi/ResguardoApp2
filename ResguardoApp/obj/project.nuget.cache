@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wCYl1VZbfFY=",
+  "dgSpecHash": "6OLLqPoB7UE=",
   "success": true,
   "projectFilePath": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\ResguardoApp.csproj",
   "expectedPackageFiles": [
@@ -8,7 +8,11 @@
     "C:\\Users\\cesar\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512",
     "C:\\Users\\cesar\\.nuget\\packages\\system.management\\9.0.7\\system.management.9.0.7.nupkg.sha512",
     "C:\\Users\\cesar\\.nuget\\packages\\system.serviceprocess.servicecontroller\\6.0.0\\system.serviceprocess.servicecontroller.6.0.0.nupkg.sha512",
-    "C:\\Users\\cesar\\.nuget\\packages\\microsoft.net.sdk.compilers.toolset\\9.0.303\\microsoft.net.sdk.compilers.toolset.9.0.303.nupkg.sha512"
+    "C:\\Users\\cesar\\.nuget\\packages\\microsoft.net.sdk.compilers.toolset\\9.0.303\\microsoft.net.sdk.compilers.toolset.9.0.303.nupkg.sha512",
+    "C:\\Users\\cesar\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.18\\microsoft.windowsdesktop.app.ref.8.0.18.nupkg.sha512",
+    "C:\\Users\\cesar\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.18\\microsoft.netcore.app.ref.8.0.18.nupkg.sha512",
+    "C:\\Users\\cesar\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.18\\microsoft.aspnetcore.app.ref.8.0.18.nupkg.sha512",
+    "C:\\Users\\cesar\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.18\\microsoft.netcore.app.host.win-x64.8.0.18.nupkg.sha512"
   ],
   "logs": []
 }
