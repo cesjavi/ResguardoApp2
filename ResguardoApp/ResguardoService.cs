@@ -15,8 +15,7 @@ namespace ResguardoApp
         public ResguardoService()
         {
             ServiceName = "ResguardoAppService";
-            var configDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ResguardoApp");
-            _configFile = Path.Combine(configDir, "config.json");
+            _configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
         }
 
         protected override void OnStart(string[] args)
