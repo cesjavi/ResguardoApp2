@@ -2,6 +2,9 @@ using System;
 using System.IO;
 using System.ServiceProcess;
 using System.Diagnostics;
+using System.Timers;
+using ResguardoApp;
+using System.Text.Json;
 
 namespace ResguardoAppService
 {

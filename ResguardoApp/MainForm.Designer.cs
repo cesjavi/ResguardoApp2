@@ -28,149 +28,163 @@ namespace ResguardoApp
         /// </summary>
         private void InitializeComponent()
         {
-            this.backupFoldersListBox = new System.Windows.Forms.ListBox();
-            this.addFolderButton = new System.Windows.Forms.Button();
-            this.removeFolderButton = new System.Windows.Forms.Button();
-            this.saveConfigButton = new System.Windows.Forms.Button();
-            this.portableDisksListBox = new System.Windows.Forms.ListBox();
-            this.detectDrivesButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.backupButton = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            //
-            // label1
-            //
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(135, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Carpetas para respaldar:";
-            //
+            backupFoldersListBox = new ListBox();
+            addFolderButton = new Button();
+            removeFolderButton = new Button();
+            saveConfigButton = new Button();
+            portableDisksListBox = new ListBox();
+            detectDrivesButton = new Button();
+            label1 = new Label();
+            label2 = new Label();
+            backupButton = new Button();
+            backupTimePicker = new DateTimePicker();
+            installServiceButton = new Button();
+            label3 = new Label();
+            SuspendLayout();
+            // 
             // backupFoldersListBox
-            //
-            this.backupFoldersListBox.FormattingEnabled = true;
-            this.backupFoldersListBox.ItemHeight = 15;
-            this.backupFoldersListBox.Location = new System.Drawing.Point(12, 27);
-            this.backupFoldersListBox.Name = "backupFoldersListBox";
-            this.backupFoldersListBox.Size = new System.Drawing.Size(358, 154);
-            this.backupFoldersListBox.TabIndex = 1;
-            //
+            // 
+            backupFoldersListBox.FormattingEnabled = true;
+            backupFoldersListBox.ItemHeight = 25;
+            backupFoldersListBox.Location = new Point(17, 45);
+            backupFoldersListBox.Margin = new Padding(4, 5, 4, 5);
+            backupFoldersListBox.Name = "backupFoldersListBox";
+            backupFoldersListBox.Size = new Size(510, 254);
+            backupFoldersListBox.TabIndex = 1;
+            // 
             // addFolderButton
-            //
-            this.addFolderButton.Location = new System.Drawing.Point(376, 27);
-            this.addFolderButton.Name = "addFolderButton";
-            this.addFolderButton.Size = new System.Drawing.Size(120, 23);
-            this.addFolderButton.TabIndex = 2;
-            this.addFolderButton.Text = "Agregar Carpeta";
-            this.addFolderButton.UseVisualStyleBackColor = true;
-            //
+            // 
+            addFolderButton.Location = new Point(537, 45);
+            addFolderButton.Margin = new Padding(4, 5, 4, 5);
+            addFolderButton.Name = "addFolderButton";
+            addFolderButton.Size = new Size(171, 38);
+            addFolderButton.TabIndex = 2;
+            addFolderButton.Text = "Agregar Carpeta";
+            addFolderButton.UseVisualStyleBackColor = true;
+            // 
             // removeFolderButton
-            //
-            this.removeFolderButton.Location = new System.Drawing.Point(376, 56);
-            this.removeFolderButton.Name = "removeFolderButton";
-            this.removeFolderButton.Size = new System.Drawing.Size(120, 23);
-            this.removeFolderButton.TabIndex = 3;
-            this.removeFolderButton.Text = "Quitar Carpeta";
-            this.removeFolderButton.UseVisualStyleBackColor = true;
-            //
+            // 
+            removeFolderButton.Location = new Point(537, 93);
+            removeFolderButton.Margin = new Padding(4, 5, 4, 5);
+            removeFolderButton.Name = "removeFolderButton";
+            removeFolderButton.Size = new Size(171, 38);
+            removeFolderButton.TabIndex = 3;
+            removeFolderButton.Text = "Quitar Carpeta";
+            removeFolderButton.UseVisualStyleBackColor = true;
+            // 
             // saveConfigButton
-            //
-            this.saveConfigButton.Location = new System.Drawing.Point(376, 85);
-            this.saveConfigButton.Name = "saveConfigButton";
-            this.saveConfigButton.Size = new System.Drawing.Size(120, 23);
-            this.saveConfigButton.TabIndex = 4;
-            this.saveConfigButton.Text = "Guardar Config.";
-            this.saveConfigButton.UseVisualStyleBackColor = true;
-            //
-            // label2
-            //
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 195);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 15);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Discos extraíbles:";
-            //
+            // 
+            saveConfigButton.Location = new Point(537, 142);
+            saveConfigButton.Margin = new Padding(4, 5, 4, 5);
+            saveConfigButton.Name = "saveConfigButton";
+            saveConfigButton.Size = new Size(171, 38);
+            saveConfigButton.TabIndex = 4;
+            saveConfigButton.Text = "Guardar Config.";
+            saveConfigButton.UseVisualStyleBackColor = true;
+            // 
             // portableDisksListBox
-            //
-            this.portableDisksListBox.FormattingEnabled = true;
-            this.portableDisksListBox.ItemHeight = 15;
-            this.portableDisksListBox.Location = new System.Drawing.Point(12, 213);
-            this.portableDisksListBox.Name = "portableDisksListBox";
-            this.portableDisksListBox.Size = new System.Drawing.Size(358, 94);
-            this.portableDisksListBox.TabIndex = 6;
-            //
+            // 
+            portableDisksListBox.FormattingEnabled = true;
+            portableDisksListBox.ItemHeight = 25;
+            portableDisksListBox.Location = new Point(17, 355);
+            portableDisksListBox.Margin = new Padding(4, 5, 4, 5);
+            portableDisksListBox.Name = "portableDisksListBox";
+            portableDisksListBox.Size = new Size(510, 154);
+            portableDisksListBox.TabIndex = 6;
+            // 
             // detectDrivesButton
-            //
-            this.detectDrivesButton.Location = new System.Drawing.Point(376, 213);
-            this.detectDrivesButton.Name = "detectDrivesButton";
-            this.detectDrivesButton.Size = new System.Drawing.Size(120, 23);
-            this.detectDrivesButton.TabIndex = 7;
-            this.detectDrivesButton.Text = "Detectar Discos";
-            this.detectDrivesButton.UseVisualStyleBackColor = true;
-            //
+            // 
+            detectDrivesButton.Location = new Point(537, 355);
+            detectDrivesButton.Margin = new Padding(4, 5, 4, 5);
+            detectDrivesButton.Name = "detectDrivesButton";
+            detectDrivesButton.Size = new Size(171, 38);
+            detectDrivesButton.TabIndex = 7;
+            detectDrivesButton.Text = "Detectar Discos";
+            detectDrivesButton.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(17, 15);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(203, 25);
+            label1.TabIndex = 0;
+            label1.Text = "Carpetas para respaldar:";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(17, 325);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(147, 25);
+            label2.TabIndex = 5;
+            label2.Text = "Discos extraíbles:";
+            // 
             // backupButton
-            //
-            this.backupButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.backupButton.Location = new System.Drawing.Point(376, 242);
-            this.backupButton.Name = "backupButton";
-            this.backupButton.Size = new System.Drawing.Size(120, 65);
-            this.backupButton.TabIndex = 8;
-            this.backupButton.Text = "Realizar Resguardo";
-            this.backupButton.UseVisualStyleBackColor = true;
-            //
+            // 
+            backupButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            backupButton.Location = new Point(537, 403);
+            backupButton.Margin = new Padding(4, 5, 4, 5);
+            backupButton.Name = "backupButton";
+            backupButton.Size = new Size(171, 108);
+            backupButton.TabIndex = 8;
+            backupButton.Text = "Realizar Resguardo";
+            backupButton.UseVisualStyleBackColor = true;
+            // 
             // backupTimePicker
-            //
-            this.backupTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.backupTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.backupTimePicker.Location = new System.Drawing.Point(12, 330);
-            this.backupTimePicker.Name = "backupTimePicker";
-            this.backupTimePicker.Size = new System.Drawing.Size(120, 23);
-            this.backupTimePicker.TabIndex = 9;
-            //
+            // 
+            backupTimePicker.Format = DateTimePickerFormat.Time;
+            backupTimePicker.Location = new Point(17, 550);
+            backupTimePicker.Margin = new Padding(4, 5, 4, 5);
+            backupTimePicker.Name = "backupTimePicker";
+            backupTimePicker.Size = new Size(170, 31);
+            backupTimePicker.TabIndex = 9;
+            // 
             // installServiceButton
-            //
-            this.installServiceButton = new System.Windows.Forms.Button();
-            this.installServiceButton.Location = new System.Drawing.Point(376, 114);
-            this.installServiceButton.Name = "installServiceButton";
-            this.installServiceButton.Size = new System.Drawing.Size(120, 23);
-            this.installServiceButton.TabIndex = 10;
-            this.installServiceButton.Text = "Instalar Servicio";
-            this.installServiceButton.UseVisualStyleBackColor = true;
-            //
+            // 
+            installServiceButton.Location = new Point(537, 190);
+            installServiceButton.Margin = new Padding(4, 5, 4, 5);
+            installServiceButton.Name = "installServiceButton";
+            installServiceButton.Size = new Size(171, 38);
+            installServiceButton.TabIndex = 10;
+            installServiceButton.Text = "Instalar Servicio";
+            installServiceButton.UseVisualStyleBackColor = true;
+            installServiceButton.Click += installServiceButton_Click_1;
+            // 
             // label3
-            //
-            this.label3 = new System.Windows.Forms.Label();
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 312);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 15);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Hora de Respaldo:";
-            //
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(17, 520);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(158, 25);
+            label3.TabIndex = 11;
+            label3.Text = "Hora de Respaldo:";
+            // 
             // MainForm
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(509, 365);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.installServiceButton);
-            this.Controls.Add(this.backupTimePicker);
-            this.Controls.Add(this.backupButton);
-            this.Controls.Add(this.detectDrivesButton);
-            this.Controls.Add(this.portableDisksListBox);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.saveConfigButton);
-            this.Controls.Add(this.removeFolderButton);
-            this.Controls.Add(this.addFolderButton);
-            this.Controls.Add(this.backupFoldersListBox);
-            this.Controls.Add(this.label1);
-            this.Name = "MainForm";
-            this.Text = "ResguardoApp";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(727, 608);
+            Controls.Add(label3);
+            Controls.Add(installServiceButton);
+            Controls.Add(backupTimePicker);
+            Controls.Add(backupButton);
+            Controls.Add(detectDrivesButton);
+            Controls.Add(portableDisksListBox);
+            Controls.Add(label2);
+            Controls.Add(saveConfigButton);
+            Controls.Add(removeFolderButton);
+            Controls.Add(addFolderButton);
+            Controls.Add(backupFoldersListBox);
+            Controls.Add(label1);
+            Margin = new Padding(4, 5, 4, 5);
+            Name = "MainForm";
+            Text = "ResguardoApp";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

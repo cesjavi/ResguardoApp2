@@ -95,58 +95,58 @@ namespace ResguardoApp
 
         private AppConfig _currentConfig;
 
-private void LoadConfiguration()
-{
-    if (!File.Exists(_configFile))
-        return;
-
-    try
-    {
-        var json = File.ReadAllText(_configFile);
-        _currentConfig = JsonSerializer.Deserialize<AppConfig>(json);
-
-        if (_currentConfig?.BackupFolders != null)
+        private void LoadConfiguration()
         {
-            backupFoldersListBox.Items.Clear();
-            foreach (var folder in _currentConfig.BackupFolders)
-                backupFoldersListBox.Items.Add(folder);
-        }
+            if (!File.Exists(_configFile))
+                return;
 
-        if (!string.IsNullOrEmpty(_currentConfig?.BackupTime))
-        {
-            if (DateTime.TryParse(_currentConfig.BackupTime, out var time))
+            try
             {
-                backupTimePicker.Value = time;
+                var json = File.ReadAllText(_configFile);
+                _currentConfig = JsonSerializer.Deserialize<AppConfig>(json);
+
+                if (_currentConfig?.BackupFolders != null)
+                {
+                    backupFoldersListBox.Items.Clear();
+                    foreach (var folder in _currentConfig.BackupFolders)
+                        backupFoldersListBox.Items.Add(folder);
+                }
+
+                if (!string.IsNullOrEmpty(_currentConfig?.BackupTime))
+                {
+                    if (DateTime.TryParse(_currentConfig.BackupTime, out var time))
+                    {
+                        backupTimePicker.Value = time;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar la configuración: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-    }
-    catch (Exception ex)
-    {
-        MessageBox.Show($"Error al cargar la configuración: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-    }
-}
 
-private void SaveConfiguration()
-{
-    try
-    {
-        _currentConfig ??= new AppConfig();
-        _currentConfig.BackupFolders = backupFoldersListBox.Items.Cast<string>().ToList();
-        _currentConfig.BackupTime = backupTimePicker.Value.ToString("HH:mm");
+        private void SaveConfiguration()
+        {
+            try
+            {
+                _currentConfig ??= new AppConfig();
+                _currentConfig.BackupFolders = backupFoldersListBox.Items.Cast<string>().ToList();
+                _currentConfig.BackupTime = backupTimePicker.Value.ToString("HH:mm");
 
-        Directory.CreateDirectory(_configDir);
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        var json = JsonSerializer.Serialize(_currentConfig, options);
+                Directory.CreateDirectory(_configDir);
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                var json = JsonSerializer.Serialize(_currentConfig, options);
 
-        File.WriteAllText(_configFile, json);
+                File.WriteAllText(_configFile, json);
 
-        MessageBox.Show("Configuración guardada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-    }
-    catch (Exception ex)
-    {
-        MessageBox.Show($"Error al guardar la configuración: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-    }
-}
+                MessageBox.Show("Configuración guardada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al guardar la configuración: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
 
         private void AddFolderButton_Click(object? sender, EventArgs e)
@@ -222,39 +222,44 @@ private void SaveConfiguration()
         }
 
         private void PerformBackup()
-{
-    if (_currentConfig == null)
-    {
-        MessageBox.Show("La configuración no ha sido cargada o guardada.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        return;
-    }
+        {
+            if (_currentConfig == null)
+            {
+                MessageBox.Show("La configuración no ha sido cargada o guardada.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-    // Asegurarse de que el disco de respaldo está seleccionado y es el correcto
-    if (portableDisksListBox.SelectedItem == null)
-    {
-        MessageBox.Show("Seleccione un disco de respaldo antes de continuar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        return;
-    }
-    var selectedDriveItem = portableDisksListBox.SelectedItem.ToString();
-    var driveLetter = selectedDriveItem.Split(' ')[0].Replace("\\", "").ToUpper();
-    var actual = DiscoUtil.ObtenerInfoDeDisco(driveLetter);
+            // Asegurarse de que el disco de respaldo está seleccionado y es el correcto
+            if (portableDisksListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione un disco de respaldo antes de continuar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            var selectedDriveItem = portableDisksListBox.SelectedItem.ToString();
+            var driveLetter = selectedDriveItem.Split(' ')[0].Replace("\\", "").ToUpper();
+            var actual = DiscoUtil.ObtenerInfoDeDisco(driveLetter);
 
-    if (_currentConfig.DiscoRespaldo == null)
-    {
-        _currentConfig.DiscoRespaldo = actual;
-        SaveConfiguration();
-        MessageBox.Show("Disco de respaldo registrado. Ahora puede realizar el respaldo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        return;
-    }
-    else if (_currentConfig.DiscoRespaldo.VolumeSerialNumber != actual.VolumeSerialNumber ||
-             _currentConfig.DiscoRespaldo.PNPDeviceID != actual.PNPDeviceID)
-    {
-        MessageBox.Show("El disco seleccionado no coincide con el disco de respaldo registrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        return;
-    }
+            if (_currentConfig.DiscoRespaldo == null)
+            {
+                _currentConfig.DiscoRespaldo = actual;
+                SaveConfiguration();
+                MessageBox.Show("Disco de respaldo registrado. Ahora puede realizar el respaldo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else if (_currentConfig.DiscoRespaldo.VolumeSerialNumber != actual.VolumeSerialNumber ||
+                     _currentConfig.DiscoRespaldo.PNPDeviceID != actual.PNPDeviceID)
+            {
+                MessageBox.Show("El disco seleccionado no coincide con el disco de respaldo registrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-    BackupService.PerformBackup(_currentConfig);
-    MessageBox.Show("Respaldo completado.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-}
+            BackupService.PerformBackup(_currentConfig);
+            MessageBox.Show("Respaldo completado.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void installServiceButton_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
