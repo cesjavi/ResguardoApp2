@@ -60,8 +60,7 @@ namespace ResguardoAppService
 
         private void LoadConfiguration()
         {
-            var configDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ResguardoApp");
-            var configFile = Path.Combine(configDir, "config.json");
+            var configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
 
             if (!File.Exists(configFile))
             {
