@@ -67,11 +67,15 @@ namespace ResguardoApp
                 RedirectStandardOutput = true
             };
 
-            var process = Process.Start(processInfo);
-            process.WaitForExit();
+            using var process = Process.Start(processInfo);
+            if (process == null)
+            {
+                throw new InvalidOperationException("Failed to start process.");
+            }
 
             string output = process.StandardOutput.ReadToEnd();
             string error = process.StandardError.ReadToEnd();
+            process.WaitForExit();
 
             if (process.ExitCode != 0)
             {
