@@ -12,6 +12,7 @@ namespace ResguardoAppService
     {
         private Timer _timer;
         private AppConfig _config;
+        private DateTime? _lastBackupDate;
 
         public Service1()
         {
@@ -52,9 +53,23 @@ namespace ResguardoAppService
         private void OnTimer(object sender, ElapsedEventArgs e)
         {
             LoadConfiguration();
-            if (_config != null && DateTime.Now.ToString("HH:mm") == _config.BackupTime)
+            if (_config == null || string.IsNullOrEmpty(_config.BackupTime))
+            {
+                return;
+            }
+
+            if (!TimeSpan.TryParse(_config.BackupTime, out var backupTime))
+            {
+                return;
+            }
+
+            var now = DateTime.Now;
+            var scheduled = now.Date.Add(backupTime);
+
+            if (now >= scheduled && (_lastBackupDate == null || _lastBackupDate.Value.Date < now.Date))
             {
                 BackupService.PerformBackup(_config);
+                _lastBackupDate = now.Date;
             }
         }
 
