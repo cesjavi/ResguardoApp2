@@ -7,6 +7,22 @@ namespace ResguardoApp
 {
     public static class BackupService
     {
+        private static readonly string _logFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_resguardo_service.txt");
+
+        private static void LogError(string message, Exception? ex = null)
+        {
+            try
+            {
+                File.AppendAllText(_logFile,
+                    DateTime.Now + " - " + message + Environment.NewLine +
+                    (ex?.ToString() ?? string.Empty) + Environment.NewLine);
+            }
+            catch
+            {
+                // Swallow any exceptions from logging to avoid recursive failures
+            }
+        }
+
         public static void PerformBackup(AppConfig config)
         {
             var sourceFolders = config.BackupFolders;
@@ -30,7 +46,7 @@ namespace ResguardoApp
                 var sourceDir = new DirectoryInfo(sourceFolder);
                 if (!sourceDir.Exists)
                 {
-                    Console.WriteLine($"Source folder not found: {sourceDir.FullName}");
+                    LogError($"Source folder not found: {sourceDir.FullName}");
                     continue;
                 }
 
@@ -44,7 +60,7 @@ namespace ResguardoApp
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to synchronize directory {sourceDir.FullName}: {ex.Message}");
+                    LogError($"Failed to synchronize directory {sourceDir.FullName}", ex);
                 }
             }
         }
@@ -62,7 +78,7 @@ namespace ResguardoApp
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Failed to copy file {sourceFile.FullName}: {ex.Message}");
+                        LogError($"Failed to copy file {sourceFile.FullName}", ex);
                     }
                 }
             }
@@ -80,7 +96,7 @@ namespace ResguardoApp
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to synchronize directory {sourceSubDir.FullName}: {ex.Message}");
+                    LogError($"Failed to synchronize directory {sourceSubDir.FullName}", ex);
                 }
             }
         }

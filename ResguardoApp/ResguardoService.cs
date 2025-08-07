@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.ServiceProcess;
+using System.Diagnostics;
 using System.Text.Json;
 using System.Timers;
 
@@ -38,11 +39,32 @@ namespace ResguardoApp
             }
             catch (Exception ex)
             {
-                File.AppendAllText(_logFile,
-                    
-                    DateTime.Now + Environment.NewLine +
-                    ex.ToString() + Environment.NewLine +
-                    (ex.InnerException?.ToString() ?? "") + Environment.NewLine);
+                try
+                {
+                    var logDir = Path.GetDirectoryName(_logFile);
+                    if (!string.IsNullOrEmpty(logDir))
+                    {
+                        Directory.CreateDirectory(logDir);
+                    }
+
+                    File.AppendAllText(_logFile,
+
+                        DateTime.Now + Environment.NewLine +
+                        ex.ToString() + Environment.NewLine +
+                        (ex.InnerException?.ToString() ?? "") + Environment.NewLine);
+                }
+                catch (Exception logEx)
+                {
+                    try
+                    {
+                        EventLog.WriteEntry(ServiceName, $"Failed to write to log file: {logEx}", EventLogEntryType.Error);
+                    }
+                    catch
+                    {
+                        // Ignored: nothing else we can do if logging fails
+                    }
+                }
+
                 throw; // Dejá que el servicio falle igual para que el Event Viewer lo registre
             }
         }
@@ -74,24 +96,48 @@ namespace ResguardoApp
 
             if (now >= scheduled && (_lastBackupDate == null || _lastBackupDate.Value.Date < now.Date))
             {
-                BackupService.PerformBackup(_config);
-                _lastBackupDate = now.Date;
+                try
+                {
+                    BackupService.PerformBackup(_config);
+                    _lastBackupDate = now.Date;
+                }
+                catch (Exception ex)
+                {
+                    File.AppendAllText(_logFile,
+                        DateTime.Now + Environment.NewLine +
+                        ex.ToString() + Environment.NewLine +
+                        (ex.InnerException?.ToString() ?? "") + Environment.NewLine);
+                }
+            }
+            else
+            {
+                File.AppendAllText(_logFile,
+                    $"{DateTime.Now} - Resguardo omitido: no es la hora programada ({_config.BackupTime}).{Environment.NewLine}");
             }
         }
 
         private void LoadConfiguration()
         {
             if (!File.Exists(_configFile))
+            {
+                File.AppendAllText(
+                    _logFile,
+                    DateTime.Now + " - Config file not found: " + _configFile + Environment.NewLine);
                 return;
+            }
 
             try
             {
                 var json = File.ReadAllText(_configFile);
                 _config = JsonSerializer.Deserialize<AppConfig>(json);
             }
-            catch
+            catch (Exception ex)
             {
-                // Log error
+                File.AppendAllText(
+                    _logFile,
+                    DateTime.Now + Environment.NewLine +
+                    ex.ToString() + Environment.NewLine +
+                    (ex.InnerException?.ToString() ?? "") + Environment.NewLine);
             }
         }
     }
