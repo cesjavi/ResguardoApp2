@@ -1,11 +1,11 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace ResguardoApp
 {
-    public static class BackupService
+    public static class BackupService2
     {
         private static readonly string _logFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_resguardo_service.txt");
 

@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.Timers;
 using ResguardoApp;
 //using System.Text.Json;
+using Newtonsoft.Json;
+
 
 namespace ResguardoAppService
 {
@@ -103,7 +105,9 @@ namespace ResguardoAppService
             try
             {
                 var json = File.ReadAllText(configFile);
-                _config = System.Text.Json.JsonSerializer.Deserialize<AppConfig>(json);
+                // Ahora (Newtonsoft.Json)
+                _config = JsonConvert.DeserializeObject<AppConfig>(json);
+
             }
             catch
             {
