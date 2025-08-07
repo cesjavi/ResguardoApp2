@@ -31,7 +31,7 @@ namespace ResguardoApp
             backupFoldersListBox = new ListBox();
             addFolderButton = new Button();
             removeFolderButton = new Button();
-            saveConfigButton = new Button();
+            applyConfigButton = new Button();
             portableDisksListBox = new ListBox();
             detectDrivesButton = new Button();
             label1 = new Label();
@@ -72,15 +72,16 @@ namespace ResguardoApp
             removeFolderButton.Text = "Quitar Carpeta";
             removeFolderButton.UseVisualStyleBackColor = true;
             // 
-            // saveConfigButton
-            // 
-            saveConfigButton.Location = new Point(537, 142);
-            saveConfigButton.Margin = new Padding(4, 5, 4, 5);
-            saveConfigButton.Name = "saveConfigButton";
-            saveConfigButton.Size = new Size(171, 38);
-            saveConfigButton.TabIndex = 4;
-            saveConfigButton.Text = "Guardar Config.";
-            saveConfigButton.UseVisualStyleBackColor = true;
+            // applyConfigButton
+            //
+            applyConfigButton.Enabled = false;
+            applyConfigButton.Location = new Point(537, 142);
+            applyConfigButton.Margin = new Padding(4, 5, 4, 5);
+            applyConfigButton.Name = "applyConfigButton";
+            applyConfigButton.Size = new Size(171, 38);
+            applyConfigButton.TabIndex = 4;
+            applyConfigButton.Text = "Aplicar Config.";
+            applyConfigButton.UseVisualStyleBackColor = true;
             // 
             // portableDisksListBox
             // 
@@ -175,7 +176,7 @@ namespace ResguardoApp
             Controls.Add(detectDrivesButton);
             Controls.Add(portableDisksListBox);
             Controls.Add(label2);
-            Controls.Add(saveConfigButton);
+            Controls.Add(applyConfigButton);
             Controls.Add(removeFolderButton);
             Controls.Add(addFolderButton);
             Controls.Add(backupFoldersListBox);
@@ -192,7 +193,7 @@ namespace ResguardoApp
         private System.Windows.Forms.ListBox backupFoldersListBox;
         private System.Windows.Forms.Button addFolderButton;
         private System.Windows.Forms.Button removeFolderButton;
-        private System.Windows.Forms.Button saveConfigButton;
+        private System.Windows.Forms.Button applyConfigButton;
         private System.Windows.Forms.ListBox portableDisksListBox;
         private System.Windows.Forms.Button detectDrivesButton;
         private System.Windows.Forms.Label label1;
