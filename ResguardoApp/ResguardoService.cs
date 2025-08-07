@@ -20,17 +20,31 @@ namespace ResguardoApp
 
         protected override void OnStart(string[] args)
         {
-            LoadConfiguration();
-
-            if (_timer == null)
+            try
             {
-                _timer = new System.Timers.Timer();
-                _timer.Elapsed += new ElapsedEventHandler(OnTimer);
-            }
+                LoadConfiguration();
 
-            _timer.Interval = 60000; // 1 minute
-            _timer.Start();
+                if (_timer == null)
+                {
+                    _timer = new System.Timers.Timer();
+                    _timer.Elapsed += new ElapsedEventHandler(OnTimer);
+                }
+
+                _timer.Interval = 60000; // 1 minuto
+                _timer.Start();
+            }
+            catch (Exception ex)
+            {
+                File.AppendAllText(@"error_resguardo_service.txt", 
+                    
+                    DateTime.Now + Environment.NewLine +
+                    ex.ToString() + Environment.NewLine +
+                    (ex.InnerException?.ToString() ?? "") + Environment.NewLine);
+                throw; // Dejá que el servicio falle igual para que el Event Viewer lo registre
+            }
         }
+
+
 
         protected override void OnStop()
         {
