@@ -12,6 +12,7 @@ namespace ResguardoApp
         private AppConfig _config;
         private readonly string _configFile;
         private readonly string _logFile;
+        private DateTime? _lastBackupDate;
 
         public ResguardoService()
         {
