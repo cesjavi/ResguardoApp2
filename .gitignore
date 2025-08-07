@@ -6,3 +6,14 @@
 ResguardoApp/obj/ResguardoApp.csproj.nuget.g.targets
 
 .fake
+/ResguardoApp/obj
+ResguardoApp/obj/Debug/net6.0-windows/ResguardoApp.AssemblyInfo.cs
+ResguardoApp/obj/Debug/net6.0-windows/ResguardoApp.AssemblyInfoInputs.cache
+ResguardoApp/obj/Debug/net6.0-windows/ResguardoApp.assets.cache
+ResguardoApp/obj/project.assets.json
+ResguardoApp/obj/project.nuget.cache
+ResguardoApp/obj/ResguardoApp.csproj.nuget.dgspec.json
+ResguardoApp/obj/ResguardoApp.csproj.nuget.g.props
+/ResguardoAppService/.vs
+/ResguardoAppService/bin
+/ResguardoApp/obj

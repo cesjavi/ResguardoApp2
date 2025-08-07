@@ -1,0 +1,7 @@
+D:\sistemas\ResguardoApp2\ResguardoAppService\bin\Debug\ResguardoAppService.exe.config
+D:\sistemas\ResguardoApp2\ResguardoAppService\bin\Debug\ResguardoAppService.exe
+D:\sistemas\ResguardoApp2\ResguardoAppService\bin\Debug\ResguardoAppService.pdb
+D:\sistemas\ResguardoApp2\ResguardoAppService\obj\Debug\ResguardoAppService.csproj.AssemblyReference.cache
+D:\sistemas\ResguardoApp2\ResguardoAppService\obj\Debug\ResguardoAppService.csproj.CoreCompileInputs.cache
+D:\sistemas\ResguardoApp2\ResguardoAppService\obj\Debug\ResguardoAppService.exe
+D:\sistemas\ResguardoApp2\ResguardoAppService\obj\Debug\ResguardoAppService.pdb
