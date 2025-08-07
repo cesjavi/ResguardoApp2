@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Management;
 
 namespace ResguardoApp
 {
@@ -43,10 +44,35 @@ namespace ResguardoApp
                     info.VolumeSerialNumber = "ERROR";
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 info.VolumeSerialNumber = "EXCEPTION";
                 // log ex.Message si querés
+            }
+
+            try
+            {
+                var query = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
+                foreach (ManagementObject drive in query.Get())
+                {
+                    var partitions = drive.GetRelated("Win32_DiskPartition");
+                    foreach (ManagementObject partition in partitions)
+                    {
+                        var logicalDisks = partition.GetRelated("Win32_LogicalDisk");
+                        foreach (ManagementObject ld in logicalDisks)
+                        {
+                            if (string.Equals(ld["DeviceID"]?.ToString(), $"{letraNormalizada}:", StringComparison.OrdinalIgnoreCase))
+                            {
+                                info.PNPDeviceID = drive["PNPDeviceID"]?.ToString();
+                                return info;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Si falla la consulta, se deja PNPDeviceID como null
             }
 
             return info;

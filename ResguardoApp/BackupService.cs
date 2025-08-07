@@ -28,10 +28,24 @@ namespace ResguardoApp
             foreach (var sourceFolder in sourceFolders)
             {
                 var sourceDir = new DirectoryInfo(sourceFolder);
+                if (!sourceDir.Exists)
+                {
+                    Console.WriteLine($"Source folder not found: {sourceDir.FullName}");
+                    continue;
+                }
+
                 var destDir = new DirectoryInfo(Path.Combine(destinationRoot, sourceDir.Name));
                 if (!destDir.Exists)
                     destDir.Create();
-                SynchronizeDirectory(sourceDir, destDir);
+
+                try
+                {
+                    SynchronizeDirectory(sourceDir, destDir);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to synchronize directory {sourceDir.FullName}: {ex.Message}");
+                }
             }
         }
 
@@ -42,7 +56,14 @@ namespace ResguardoApp
                 var destinationFile = new FileInfo(Path.Combine(destination.FullName, sourceFile.Name));
                 if (!destinationFile.Exists || sourceFile.LastWriteTime > destinationFile.LastWriteTime)
                 {
-                    sourceFile.CopyTo(destinationFile.FullName, true);
+                    try
+                    {
+                        sourceFile.CopyTo(destinationFile.FullName, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Failed to copy file {sourceFile.FullName}: {ex.Message}");
+                    }
                 }
             }
 
@@ -53,7 +74,14 @@ namespace ResguardoApp
                 {
                     destinationSubDir.Create();
                 }
-                SynchronizeDirectory(sourceSubDir, destinationSubDir);
+                try
+                {
+                    SynchronizeDirectory(sourceSubDir, destinationSubDir);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to synchronize directory {sourceSubDir.FullName}: {ex.Message}");
+                }
             }
         }
     }
