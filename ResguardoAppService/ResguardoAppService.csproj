@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../ResguardoApp/ResguardoApp.csproj" />
+    <ProjectReference Include="../SharedLib/SharedLib.csproj" />
   </ItemGroup>
 
 </Project>

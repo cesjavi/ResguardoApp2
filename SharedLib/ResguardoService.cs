@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Timers;
 
-namespace ResguardoApp
+namespace SharedLib
 {
     public class ResguardoService : ServiceBase
     {

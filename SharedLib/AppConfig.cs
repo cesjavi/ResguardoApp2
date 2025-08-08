@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ResguardoApp
+namespace SharedLib
 {
     public class AppConfig
     {
