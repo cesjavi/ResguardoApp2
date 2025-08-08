@@ -1,3 +1,4 @@
+using SharedLib;
 using System.ServiceProcess;
 
 namespace ResguardoApp
