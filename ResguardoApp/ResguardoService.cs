@@ -19,7 +19,14 @@ namespace ResguardoApp
         {
             ServiceName = "ResguardoAppService";
             _configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
-            _logFile = @"D:\logs\error_resguardo_service.txt";
+            var logDir = Environment.GetEnvironmentVariable("RESGUARDO_LOG_PATH");
+            if (string.IsNullOrWhiteSpace(logDir))
+            {
+                logDir = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                    "ResguardoApp");
+            }
+            _logFile = Path.Combine(logDir, "error_resguardo_service.txt");
         }
 
         protected override void OnStart(string[] args)
@@ -44,31 +51,10 @@ namespace ResguardoApp
             }
             catch (Exception ex)
             {
-                try
-                {
-                    var logDir = Path.GetDirectoryName(_logFile);
-                    if (!string.IsNullOrEmpty(logDir))
-                    {
-                        Directory.CreateDirectory(logDir);
-                    }
-
-                    File.AppendAllText(_logFile,
-
-                        DateTime.Now + Environment.NewLine +
-                        ex.ToString() + Environment.NewLine +
-                        (ex.InnerException?.ToString() ?? "") + Environment.NewLine);
-                }
-                catch (Exception logEx)
-                {
-                    try
-                    {
-                        EventLog.WriteEntry(ServiceName, $"Failed to write to log file: {logEx}", EventLogEntryType.Error);
-                    }
-                    catch
-                    {
-                        // Ignored: nothing else we can do if logging fails
-                    }
-                }
+                SafeLog(
+                    DateTime.Now + Environment.NewLine +
+                    ex.ToString() + Environment.NewLine +
+                    (ex.InnerException?.ToString() ?? "") + Environment.NewLine);
 
                 throw; // Dejá que el servicio falle igual para que el Event Viewer lo registre
             }
@@ -108,7 +94,7 @@ namespace ResguardoApp
                 }
                 catch (Exception ex)
                 {
-                    File.AppendAllText(_logFile,
+                    SafeLog(
                         DateTime.Now + Environment.NewLine +
                         ex.ToString() + Environment.NewLine +
                         (ex.InnerException?.ToString() ?? "") + Environment.NewLine);
@@ -116,7 +102,7 @@ namespace ResguardoApp
             }
             else
             {
-                File.AppendAllText(_logFile,
+                SafeLog(
                     $"{DateTime.Now} - Resguardo omitido: no es la hora programada ({_config.BackupTime}).{Environment.NewLine}");
             }
         }
@@ -137,8 +123,7 @@ namespace ResguardoApp
         {
             if (!File.Exists(_configFile))
             {
-                File.AppendAllText(
-                    _logFile,
+                SafeLog(
                     DateTime.Now + " - Config file not found: " + _configFile + Environment.NewLine);
                 return;
             }
@@ -150,11 +135,34 @@ namespace ResguardoApp
             }
             catch (Exception ex)
             {
-                File.AppendAllText(
-                    _logFile,
+                SafeLog(
                     DateTime.Now + Environment.NewLine +
                     ex.ToString() + Environment.NewLine +
                     (ex.InnerException?.ToString() ?? "") + Environment.NewLine);
+            }
+        }
+
+        private void SafeLog(string message)
+        {
+            try
+            {
+                var dir = Path.GetDirectoryName(_logFile);
+                if (!string.IsNullOrEmpty(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+                File.AppendAllText(_logFile, message);
+            }
+            catch (Exception logEx)
+            {
+                try
+                {
+                    EventLog.WriteEntry(ServiceName, $"Failed to write to log file: {logEx}", EventLogEntryType.Error);
+                }
+                catch
+                {
+                    // Ignored: nothing else we can do if logging fails
+                }
             }
         }
     }
