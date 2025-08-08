@@ -47,4 +47,8 @@ This project is a standard .NET WinForms application. You can build and run it u
 -   **Run on Service Start**: Edit `config.json` and set `forceBackupOnStart` to `true`. The service will execute a backup immediately after loading the configuration.
 -   **Run On Demand**: Use the `ForceBackup` method exposed by the service to perform a backup at any time without waiting for the scheduled time.
 
+### Logging
+
+By default the service records errors in `%ProgramData%/ResguardoApp/error_resguardo_service.txt`. Set the `RESGUARDO_LOG_PATH` environment variable to change the log directory before launching the service.
+
 **Important Note**: This is a Windows Forms application and can only be compiled and run on a Windows operating system.
