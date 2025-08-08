@@ -2,7 +2,6 @@ using SharedLib;
 using System;
 using System.Runtime.InteropServices;
 using System.Management;
-using SharedLib;
 
 namespace ResguardoApp
 {
@@ -13,12 +12,12 @@ namespace ResguardoApp
         [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         static extern bool GetVolumeInformation(
             string lpRootPathName,
-            System.Text.StringBuilder lpVolumeNameBuffer,
+            System.Text.StringBuilder? lpVolumeNameBuffer,
             int nVolumeNameSize,
             out uint lpVolumeSerialNumber,
             out uint lpMaximumComponentLength,
             out uint lpFileSystemFlags,
-            System.Text.StringBuilder lpFileSystemNameBuffer,
+            System.Text.StringBuilder? lpFileSystemNameBuffer,
             int nFileSystemNameSize);
 
         public static DiscoRespaldoInfo ObtenerInfoDeDisco(string letra)
@@ -29,12 +28,14 @@ namespace ResguardoApp
             try
             {
                 string rootPath = letraNormalizada + @":\";
+                System.Text.StringBuilder? volumeNameBuffer = null;
+                System.Text.StringBuilder? fileSystemNameBuffer = null;
                 bool success = GetVolumeInformation(
                     rootPath,
-                    null, 0,
+                    volumeNameBuffer, 0,
                     out uint serialNumber,
                     out _, out _,
-                    null, 0
+                    fileSystemNameBuffer, 0
                 );
 
                 if (success)
@@ -54,19 +55,29 @@ namespace ResguardoApp
 
             try
             {
-                var query = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
-                foreach (ManagementObject drive in query.Get())
+                using var query = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
+                using ManagementObjectCollection drives = query.Get();
+                foreach (ManagementObject drive in drives)
                 {
-                    var partitions = drive.GetRelated("Win32_DiskPartition");
-                    foreach (ManagementObject partition in partitions)
+                    using (drive)
                     {
-                        var logicalDisks = partition.GetRelated("Win32_LogicalDisk");
-                        foreach (ManagementObject ld in logicalDisks)
+                        using ManagementObjectCollection partitions = drive.GetRelated("Win32_DiskPartition");
+                        foreach (ManagementObject partition in partitions)
                         {
-                            if (string.Equals(ld["DeviceID"]?.ToString(), $"{letraNormalizada}:", StringComparison.OrdinalIgnoreCase))
+                            using (partition)
                             {
-                                info.PNPDeviceID = drive["PNPDeviceID"]?.ToString();
-                                return info;
+                                using ManagementObjectCollection logicalDisks = partition.GetRelated("Win32_LogicalDisk");
+                                foreach (ManagementObject ld in logicalDisks)
+                                {
+                                    using (ld)
+                                    {
+                                        if (string.Equals(ld["DeviceID"]?.ToString(), $"{letraNormalizada}:", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            info.PNPDeviceID = drive["PNPDeviceID"]?.ToString();
+                                            return info;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
