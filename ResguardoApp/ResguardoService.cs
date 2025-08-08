@@ -14,6 +14,9 @@ namespace ResguardoApp
         private readonly string _configFile;
         private readonly string _logFile;
         private DateTime? _lastBackupDate;
+        private DateTime? _lastSkipLogDate;
+        private string? _lastLogMessage;
+        private DateTime _lastLogTime;
 
         public ResguardoService()
         {
@@ -116,8 +119,26 @@ namespace ResguardoApp
             }
             else
             {
-                File.AppendAllText(_logFile,
-                    $"{DateTime.Now} - Resguardo omitido: no es la hora programada ({_config.BackupTime}).{Environment.NewLine}");
+#if DEBUG
+                LogSkip(now);
+#else
+                if (_lastSkipLogDate == null || _lastSkipLogDate.Value.Date < now.Date)
+                {
+                    LogSkip(now);
+                }
+#endif
+            }
+        }
+
+        private void LogSkip(DateTime now)
+        {
+            var message = $"{now} - Resguardo omitido: no es la hora programada ({_config.BackupTime}).{Environment.NewLine}";
+            if (message != _lastLogMessage || (now - _lastLogTime) > TimeSpan.FromMinutes(1))
+            {
+                File.AppendAllText(_logFile, message);
+                _lastLogMessage = message;
+                _lastLogTime = now;
+                _lastSkipLogDate = now.Date;
             }
         }
 
