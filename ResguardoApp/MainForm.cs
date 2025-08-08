@@ -7,7 +7,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text.Json;
 using System.Windows.Forms;
-using SharedLib;
+
 
 namespace ResguardoApp
 {
