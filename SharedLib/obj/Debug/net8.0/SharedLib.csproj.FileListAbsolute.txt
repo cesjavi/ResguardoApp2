@@ -1,0 +1,13 @@
+D:\sistemas\ResguardoApp2\SharedLib\bin\Debug\net8.0\SharedLib.deps.json
+D:\sistemas\ResguardoApp2\SharedLib\bin\Debug\net8.0\SharedLib.dll
+D:\sistemas\ResguardoApp2\SharedLib\bin\Debug\net8.0\SharedLib.pdb
+D:\sistemas\ResguardoApp2\SharedLib\obj\Debug\net8.0\SharedLib.csproj.AssemblyReference.cache
+D:\sistemas\ResguardoApp2\SharedLib\obj\Debug\net8.0\SharedLib.GeneratedMSBuildEditorConfig.editorconfig
+D:\sistemas\ResguardoApp2\SharedLib\obj\Debug\net8.0\SharedLib.AssemblyInfoInputs.cache
+D:\sistemas\ResguardoApp2\SharedLib\obj\Debug\net8.0\SharedLib.AssemblyInfo.cs
+D:\sistemas\ResguardoApp2\SharedLib\obj\Debug\net8.0\SharedLib.csproj.CoreCompileInputs.cache
+D:\sistemas\ResguardoApp2\SharedLib\obj\Debug\net8.0\SharedLib.sourcelink.json
+D:\sistemas\ResguardoApp2\SharedLib\obj\Debug\net8.0\SharedLib.dll
+D:\sistemas\ResguardoApp2\SharedLib\obj\Debug\net8.0\refint\SharedLib.dll
+D:\sistemas\ResguardoApp2\SharedLib\obj\Debug\net8.0\SharedLib.pdb
+D:\sistemas\ResguardoApp2\SharedLib\obj\Debug\net8.0\ref\SharedLib.dll
