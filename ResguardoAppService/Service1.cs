@@ -60,12 +60,14 @@ namespace ResguardoAppService
         private void OnTimer(object sender, ElapsedEventArgs e)
         {
             LoadConfiguration();
-            if (_config == null || string.IsNullOrEmpty(_config.BackupTime))
+            var config = _config;
+            var backupTimeString = config?.BackupTime;
+            if (string.IsNullOrEmpty(backupTimeString))
             {
                 return;
             }
 
-            if (!TimeSpan.TryParse(_config.BackupTime, out var backupTime))
+            if (!TimeSpan.TryParse(backupTimeString, out var backupTime))
             {
                 return;
             }
@@ -75,8 +77,11 @@ namespace ResguardoAppService
 
             if (now >= scheduled && (_lastBackupDate == null || _lastBackupDate.Value.Date < now.Date))
             {
-                BackupService.PerformBackup(_config);
-                _lastBackupDate = now.Date;
+                if (config != null)
+                {
+                    BackupService.PerformBackup(config);
+                    _lastBackupDate = now.Date;
+                }
             }
         }
 

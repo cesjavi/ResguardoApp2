@@ -116,9 +116,10 @@ namespace ResguardoApp
                         backupFoldersListBox.Items.Add(folder);
                 }
 
-                if (!string.IsNullOrEmpty(_currentConfig?.BackupTime))
+                var backupTimeString = _currentConfig?.BackupTime;
+                if (!string.IsNullOrEmpty(backupTimeString))
                 {
-                    if (DateTime.TryParse(_currentConfig.BackupTime, out var time))
+                    if (DateTime.TryParse(backupTimeString, out var time))
                     {
                         backupTimePicker.Value = time;
                     }
@@ -260,7 +261,13 @@ namespace ResguardoApp
                 return;
             }
 
-            var selectedDriveItem = portableDisksListBox.SelectedItem.ToString();
+            var selectedDriveItem = portableDisksListBox.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(selectedDriveItem))
+            {
+                MessageBox.Show("Seleccione un disco de respaldo válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             var drive = DriveInfo.GetDrives()
                 .FirstOrDefault(d => selectedDriveItem.StartsWith(d.Name, StringComparison.OrdinalIgnoreCase));
 
@@ -273,7 +280,8 @@ namespace ResguardoApp
             var driveLetter = drive.Name.Replace("\\", "").ToUpper();
             var actual = DiscoUtil.ObtenerInfoDeDisco(driveLetter);
 
-            if (_currentConfig.DiscoRespaldo == null)
+            var discoRespaldo = _currentConfig.DiscoRespaldo;
+            if (discoRespaldo == null)
             {
                 _currentConfig.DiscoRespaldo = actual;
                 SaveConfiguration();
@@ -283,15 +291,15 @@ namespace ResguardoApp
             else
             {
                 bool serialMatch = string.Equals(
-                    _currentConfig.DiscoRespaldo.VolumeSerialNumber,
+                    discoRespaldo.VolumeSerialNumber,
                     actual.VolumeSerialNumber,
                     StringComparison.OrdinalIgnoreCase);
 
                 bool pnpMatch = true;
-                if (!string.IsNullOrEmpty(_currentConfig.DiscoRespaldo.PNPDeviceID) &&
+                if (!string.IsNullOrEmpty(discoRespaldo.PNPDeviceID) &&
                     !string.IsNullOrEmpty(actual.PNPDeviceID))
                 {
-                    pnpMatch = _currentConfig.DiscoRespaldo.PNPDeviceID == actual.PNPDeviceID;
+                    pnpMatch = discoRespaldo.PNPDeviceID == actual.PNPDeviceID;
                 }
 
                 if (!serialMatch || !pnpMatch)

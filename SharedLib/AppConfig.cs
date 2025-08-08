@@ -5,8 +5,8 @@ namespace SharedLib
     public class AppConfig
     {
         public List<string> BackupFolders { get; set; } = new List<string>();
-        public DiscoRespaldoInfo DiscoRespaldo { get; set; }
-        public string BackupTime { get; set; }
+        public DiscoRespaldoInfo? DiscoRespaldo { get; set; }
+        public string? BackupTime { get; set; }
         public bool ForceBackupOnStart { get; set; }
     }
 
