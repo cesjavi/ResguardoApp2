@@ -31,13 +31,14 @@ namespace SharedLib
                 return;
             }
 
-            if (config.DiscoRespaldo == null)
+            var discoRespaldo = config.DiscoRespaldo;
+            if (discoRespaldo == null)
             {
                 // Can't proceed without a registered backup disk.
                 return;
             }
 
-            var driveLetter = config.DiscoRespaldo.Letra.Replace("\\", "").ToUpper();
+            var driveLetter = discoRespaldo.Letra.Replace("\\", "").ToUpper();
             var destinationRoot = Path.Combine($"{driveLetter}\\", "ResguardoApp");
 
             foreach (var sourceFolder in sourceFolders)

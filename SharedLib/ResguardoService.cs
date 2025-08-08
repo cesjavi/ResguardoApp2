@@ -76,12 +76,14 @@ namespace SharedLib
         private void OnTimer(object sender, ElapsedEventArgs args)
         {
             LoadConfiguration();
-            if (_config == null || string.IsNullOrEmpty(_config.BackupTime))
+            var config = _config;
+            var backupTimeString = config?.BackupTime;
+            if (string.IsNullOrEmpty(backupTimeString))
             {
                 return;
             }
 
-            if (!TimeSpan.TryParse(_config.BackupTime, out var backupTime))
+            if (!TimeSpan.TryParse(backupTimeString, out var backupTime))
             {
                 return;
             }
@@ -93,7 +95,10 @@ namespace SharedLib
             {
                 try
                 {
-                    BackupService.PerformBackup(_config);
+                    if (config != null)
+                    {
+                        BackupService.PerformBackup(config);
+                    }
                     _lastBackupDate = now.Date;
                 }
                 catch (Exception ex)
@@ -119,7 +124,7 @@ namespace SharedLib
 
         private void LogSkip(DateTime now)
         {
-            var message = $"{now} - Resguardo omitido: no es la hora programada ({_config.BackupTime}).{Environment.NewLine}";
+            var message = $"{now} - Resguardo omitido: no es la hora programada ({_config?.BackupTime ?? "N/A"}).{Environment.NewLine}";
             if (message != _lastLogMessage || (now - _lastLogTime) > TimeSpan.FromMinutes(1))
             {
                 File.AppendAllText(_logFile, message);
