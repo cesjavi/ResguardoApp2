@@ -32,7 +32,11 @@
         "frameworks": {
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\sistemas\\ResguardoApp2\\SharedLib\\SharedLib.csproj": {
+                "projectPath": "D:\\sistemas\\ResguardoApp2\\SharedLib\\SharedLib.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -54,6 +58,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "System.ServiceProcess.ServiceController": {
+              "target": "Package",
+              "version": "[6.0.0, )"
             }
           },
           "imports": [
