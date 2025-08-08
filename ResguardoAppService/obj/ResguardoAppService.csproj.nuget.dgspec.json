@@ -32,7 +32,11 @@
         "frameworks": {
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\sistemas\\ResguardoApp2\\SharedLib\\SharedLib.csproj": {
+                "projectPath": "D:\\sistemas\\ResguardoApp2\\SharedLib\\SharedLib.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

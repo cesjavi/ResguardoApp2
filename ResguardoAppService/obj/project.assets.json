@@ -51,6 +51,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
+      "D:\\sistemas\\ResguardoApp2\\SharedLib\\SharedLib.csproj",
       "Newtonsoft.Json >= 13.0.3"
     ]
   },
@@ -86,7 +87,11 @@
       "frameworks": {
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\sistemas\\ResguardoApp2\\SharedLib\\SharedLib.csproj": {
+              "projectPath": "D:\\sistemas\\ResguardoApp2\\SharedLib\\SharedLib.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -151,5 +156,16 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.303/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1105",
+      "level": "Error",
+      "message": "Unable to find project information for 'D:\\sistemas\\ResguardoApp2\\SharedLib\\SharedLib.csproj'. If you are using Visual Studio, this may be because the project is unloaded or not part of the current solution so run a restore from the command-line. Otherwise, the project file may be invalid or missing targets required for restore.",
+      "libraryId": "D:\\sistemas\\ResguardoApp2\\SharedLib\\SharedLib.csproj",
+      "targetGraphs": [
+        "net8.0-windows7.0"
+      ]
+    }
+  ]
 }
