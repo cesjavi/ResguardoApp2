@@ -520,6 +520,10 @@
             "version": "[8.0.18, 8.0.18]"
           },
           {
+            "name": "Microsoft.Net.Sdk.Compilers.Toolset",
+            "version": "[9.0.303, 9.0.303]"
+          },
+          {
             "name": "Microsoft.NETCore.App.Host.win-x64",
             "version": "[8.0.18, 8.0.18]"
           },

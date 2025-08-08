@@ -1,0 +1,100 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\sistemas\\ResguardoApp2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AA7D1492-7B90-4681-9037-08AC0E71D32E}|SharedLib\\SharedLib.csproj|d:\\sistemas\\resguardoapp2\\sharedlib\\backupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AA7D1492-7B90-4681-9037-08AC0E71D32E}|SharedLib\\SharedLib.csproj|solutionrelative:sharedlib\\backupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{68354656-6D67-4A3A-B78E-F09C579D6E05}|ResguardoAppService\\ResguardoAppService.csproj|d:\\sistemas\\resguardoapp2\\resguardoappservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{68354656-6D67-4A3A-B78E-F09C579D6E05}|ResguardoAppService\\ResguardoAppService.csproj|solutionrelative:resguardoappservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{68354656-6D67-4A3A-B78E-F09C579D6E05}|ResguardoAppService\\ResguardoAppService.csproj|d:\\sistemas\\resguardoapp2\\resguardoappservice\\service1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{68354656-6D67-4A3A-B78E-F09C579D6E05}|ResguardoAppService\\ResguardoAppService.csproj|solutionrelative:resguardoappservice\\service1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{68354656-6D67-4A3A-B78E-F09C579D6E05}|ResguardoAppService\\ResguardoAppService.csproj|d:\\sistemas\\resguardoapp2\\resguardoappservice\\resguardoappservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{68354656-6D67-4A3A-B78E-F09C579D6E05}|ResguardoAppService\\ResguardoAppService.csproj|solutionrelative:resguardoappservice\\resguardoappservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BackupService.cs",
+              "DocumentMoniker": "D:\\sistemas\\ResguardoApp2\\SharedLib\\BackupService.cs",
+              "RelativeDocumentMoniker": "SharedLib\\BackupService.cs",
+              "ToolTip": "D:\\sistemas\\ResguardoApp2\\SharedLib\\BackupService.cs",
+              "RelativeToolTip": "SharedLib\\BackupService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAgAAAB+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-08T03:05:07.237Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\sistemas\\ResguardoApp2\\ResguardoAppService\\Program.cs",
+              "RelativeDocumentMoniker": "ResguardoAppService\\Program.cs",
+              "ToolTip": "D:\\sistemas\\ResguardoApp2\\ResguardoAppService\\Program.cs",
+              "RelativeToolTip": "ResguardoAppService\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-08T03:05:01.484Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Service1.cs",
+              "DocumentMoniker": "D:\\sistemas\\ResguardoApp2\\ResguardoAppService\\Service1.cs",
+              "RelativeDocumentMoniker": "ResguardoAppService\\Service1.cs",
+              "ToolTip": "D:\\sistemas\\ResguardoApp2\\ResguardoAppService\\Service1.cs",
+              "RelativeToolTip": "ResguardoAppService\\Service1.cs",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-08T03:04:48.52Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ResguardoAppService",
+              "DocumentMoniker": "D:\\sistemas\\ResguardoApp2\\ResguardoAppService\\ResguardoAppService.csproj",
+              "RelativeDocumentMoniker": "ResguardoAppService\\ResguardoAppService.csproj",
+              "ToolTip": "D:\\sistemas\\ResguardoApp2\\ResguardoAppService\\ResguardoAppService.csproj",
+              "RelativeToolTip": "ResguardoAppService\\ResguardoAppService.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-08-08T03:04:45.131Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
