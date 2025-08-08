@@ -2,6 +2,7 @@ using SharedLib;
 using System;
 using System.Runtime.InteropServices;
 using System.Management;
+using SharedLib;
 
 namespace ResguardoApp
 {

@@ -4,6 +4,7 @@ using System.ServiceProcess;
 using System.Diagnostics;
 using System.Text.Json;
 using System.Timers;
+using SharedLib;
 
 namespace SharedLib
 {
