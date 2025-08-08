@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Timers;
 using SharedLib;
 
-namespace ResguardoApp
+namespace SharedLib
 {
     public class ResguardoService : ServiceBase
     {
