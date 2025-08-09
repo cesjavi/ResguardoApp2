@@ -21,3 +21,7 @@ ResguardoApp/obj/ResguardoApp.csproj.nuget.g.props
 /ResguardoAppService/obj
 ResguardoAppService/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 ResguardoAppService/obj/Debug/ResguardoAppService.csproj.CoreCompileInputs.cache
+/.vs
+/.vs
+/SharedLib/obj
+/SharedLib/bin

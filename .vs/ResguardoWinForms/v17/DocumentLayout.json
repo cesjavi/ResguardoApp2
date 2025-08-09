@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\sistemas\\ResguardoApp2\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9F2338E4-819D-416D-933F-5863202DF3EA}|ResguardoApp\\ResguardoApp.csproj|d:\\sistemas\\resguardoapp2\\resguardoapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{9F2338E4-819D-416D-933F-5863202DF3EA}|ResguardoApp\\ResguardoApp.csproj|solutionrelative:resguardoapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F2338E4-819D-416D-933F-5863202DF3EA}|ResguardoApp\\ResguardoApp.csproj|d:\\sistemas\\resguardoapp2\\resguardoapp\\resguardoapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{9F2338E4-819D-416D-933F-5863202DF3EA}|ResguardoApp\\ResguardoApp.csproj|solutionrelative:resguardoapp\\resguardoapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -22,6 +31,31 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainForm.cs [Design]",
+              "DocumentMoniker": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\MainForm.cs",
+              "RelativeDocumentMoniker": "ResguardoApp\\MainForm.cs",
+              "ToolTip": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\MainForm.cs [Design]*",
+              "RelativeToolTip": "ResguardoApp\\MainForm.cs [Design]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-09T04:01:27.929Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ResguardoApp",
+              "DocumentMoniker": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\ResguardoApp.csproj",
+              "RelativeDocumentMoniker": "ResguardoApp\\ResguardoApp.csproj",
+              "ToolTip": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\ResguardoApp.csproj",
+              "RelativeToolTip": "ResguardoApp\\ResguardoApp.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-08-09T04:01:23.083Z",
+              "EditorCaption": ""
             }
           ]
         }
