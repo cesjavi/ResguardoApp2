@@ -6,6 +6,7 @@ namespace ResguardoApp
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.ComboBox backupDayComboBox;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -29,18 +30,20 @@ namespace ResguardoApp
         private void InitializeComponent()
         {
             configPanel = new Panel();
+            detectDrivesButton = new Button();
+            backupButton = new Button();
             panel1 = new Panel();
+            backupFoldersListBox = new ListBox();
             installServiceButton = new Button();
+            portableDisksListBox = new ListBox();
+            backupDayComboBox = new ComboBox();
             backupTimePicker = new DateTimePicker();
+            label4 = new Label();
             label3 = new Label();
             applyConfigButton = new Button();
             removeFolderButton = new Button();
             addFolderButton = new Button();
             label1 = new Label();
-            portableDisksListBox = new ListBox();
-            detectDrivesButton = new Button();
-            backupButton = new Button();
-            backupFoldersListBox = new ListBox();
             configPanel.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -68,6 +71,27 @@ namespace ResguardoApp
             configPanel.Size = new Size(855, 608);
             configPanel.TabIndex = 12;
             // 
+            // detectDrivesButton
+            // 
+            detectDrivesButton.Location = new Point(13, 392);
+            detectDrivesButton.Margin = new Padding(4, 5, 4, 5);
+            detectDrivesButton.Name = "detectDrivesButton";
+            detectDrivesButton.Size = new Size(171, 38);
+            detectDrivesButton.TabIndex = 7;
+            detectDrivesButton.Text = "Detectar Discos";
+            detectDrivesButton.UseVisualStyleBackColor = true;
+            // 
+            // backupButton
+            // 
+            backupButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            backupButton.Location = new Point(393, 440);
+            backupButton.Margin = new Padding(4, 5, 4, 5);
+            backupButton.Name = "backupButton";
+            backupButton.Size = new Size(226, 154);
+            backupButton.TabIndex = 8;
+            backupButton.Text = "Realizar Resguardo Manual";
+            backupButton.UseVisualStyleBackColor = true;
+            // 
             // panel1
             // 
             panel1.BackColor = SystemColors.ControlDarkDark;
@@ -77,6 +101,17 @@ namespace ResguardoApp
             panel1.Name = "panel1";
             panel1.Size = new Size(615, 283);
             panel1.TabIndex = 12;
+            // 
+            // backupFoldersListBox
+            // 
+            backupFoldersListBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            backupFoldersListBox.FormattingEnabled = true;
+            backupFoldersListBox.ItemHeight = 25;
+            backupFoldersListBox.Location = new Point(7, 14);
+            backupFoldersListBox.Margin = new Padding(4, 5, 4, 5);
+            backupFoldersListBox.Name = "backupFoldersListBox";
+            backupFoldersListBox.Size = new Size(600, 254);
+            backupFoldersListBox.TabIndex = 2;
             // 
             // installServiceButton
             // 
@@ -88,6 +123,26 @@ namespace ResguardoApp
             installServiceButton.Text = "Instalar Servicio";
             installServiceButton.UseVisualStyleBackColor = true;
             // 
+            // portableDisksListBox
+            // 
+            portableDisksListBox.FormattingEnabled = true;
+            portableDisksListBox.ItemHeight = 25;
+            portableDisksListBox.Location = new Point(13, 440);
+            portableDisksListBox.Margin = new Padding(4, 5, 4, 5);
+            portableDisksListBox.Name = "portableDisksListBox";
+            portableDisksListBox.Size = new Size(372, 154);
+            portableDisksListBox.TabIndex = 6;
+            // 
+            // backupDayComboBox
+            // 
+            backupDayComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            backupDayComboBox.FormattingEnabled = true;
+            backupDayComboBox.Items.AddRange(new object[] { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo" });
+            backupDayComboBox.Location = new Point(658, 125);
+            backupDayComboBox.Name = "backupDayComboBox";
+            backupDayComboBox.Size = new Size(170, 33);
+            backupDayComboBox.TabIndex = 13;
+            // 
             // backupTimePicker
             // 
             backupTimePicker.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
@@ -97,6 +152,16 @@ namespace ResguardoApp
             backupTimePicker.Name = "backupTimePicker";
             backupTimePicker.Size = new Size(170, 31);
             backupTimePicker.TabIndex = 9;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.ForeColor = Color.Coral;
+            label4.Location = new Point(658, 95);
+            label4.Name = "label4";
+            label4.Size = new Size(145, 25);
+            label4.TabIndex = 14;
+            label4.Text = "Día de Respaldo:";
             // 
             // label3
             // 
@@ -113,7 +178,7 @@ namespace ResguardoApp
             // applyConfigButton
             // 
             applyConfigButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            applyConfigButton.Location = new Point(657, 94);
+            applyConfigButton.Location = new Point(657, 167);
             applyConfigButton.Margin = new Padding(4, 5, 4, 5);
             applyConfigButton.Name = "applyConfigButton";
             applyConfigButton.Size = new Size(171, 38);
@@ -153,68 +218,6 @@ namespace ResguardoApp
             label1.TabIndex = 0;
             label1.Text = "Carpetas para respaldar:";
             // 
-            // portableDisksListBox
-            // 
-            portableDisksListBox.FormattingEnabled = true;
-            portableDisksListBox.ItemHeight = 25;
-            portableDisksListBox.Location = new Point(13, 440);
-            portableDisksListBox.Margin = new Padding(4, 5, 4, 5);
-            portableDisksListBox.Name = "portableDisksListBox";
-            portableDisksListBox.Size = new Size(372, 154);
-            portableDisksListBox.TabIndex = 6;
-            // 
-            // detectDrivesButton
-            // 
-            detectDrivesButton.Location = new Point(13, 392);
-            detectDrivesButton.Margin = new Padding(4, 5, 4, 5);
-            detectDrivesButton.Name = "detectDrivesButton";
-            detectDrivesButton.Size = new Size(171, 38);
-            detectDrivesButton.TabIndex = 7;
-            detectDrivesButton.Text = "Detectar Discos";
-            detectDrivesButton.UseVisualStyleBackColor = true;
-            // 
-            // backupButton
-            // 
-            backupButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            backupButton.Location = new Point(393, 440);
-            backupButton.Margin = new Padding(4, 5, 4, 5);
-            backupButton.Name = "backupButton";
-            backupButton.Size = new Size(226, 154);
-            backupButton.TabIndex = 8;
-            backupButton.Text = "Realizar Resguardo Manual";
-            backupButton.UseVisualStyleBackColor = true;
-            // 
-            // backupFoldersListBox
-            // 
-            backupFoldersListBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            backupFoldersListBox.FormattingEnabled = true;
-            backupFoldersListBox.ItemHeight = 25;
-            backupFoldersListBox.Location = new Point(7, 14);
-            backupFoldersListBox.Margin = new Padding(4, 5, 4, 5);
-            backupFoldersListBox.Name = "backupFoldersListBox";
-            backupFoldersListBox.Size = new Size(600, 254);
-            backupFoldersListBox.TabIndex = 2;
-            //
-            // backupDayComboBox
-            //
-            backupDayComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            backupDayComboBox.FormattingEnabled = true;
-            backupDayComboBox.Items.AddRange(new object[] { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo" });
-            backupDayComboBox.Location = new Point(658, 180);
-            backupDayComboBox.Name = "backupDayComboBox";
-            backupDayComboBox.Size = new Size(170, 33);
-            backupDayComboBox.TabIndex = 13;
-            //
-            // label4
-            //
-            label4.AutoSize = true;
-            label4.ForeColor = Color.Coral;
-            label4.Location = new Point(658, 150);
-            label4.Name = "label4";
-            label4.Size = new Size(151, 25);
-            label4.TabIndex = 14;
-            label4.Text = "Día de Respaldo:";
-            //
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -246,7 +249,7 @@ namespace ResguardoApp
         private System.Windows.Forms.Panel configPanel;
         private Panel panel1;
         private ListBox backupFoldersListBox;
-        private ComboBox backupDayComboBox;
+
         private Label label4;
     }
 }
