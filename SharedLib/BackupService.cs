@@ -41,12 +41,14 @@ namespace SharedLib
             var driveLetter = discoRespaldo.Letra.Replace("\\", "").ToUpper();
             var destinationRoot = Path.Combine($"{driveLetter}\\", "ResguardoApp");
 
+            var success = true;
             foreach (var sourceFolder in sourceFolders)
             {
                 var sourceDir = new DirectoryInfo(sourceFolder);
                 if (!sourceDir.Exists)
                 {
                     LogError($"Source folder not found: {sourceDir.FullName}");
+                    success = false;
                     continue;
                 }
 
@@ -61,8 +63,17 @@ namespace SharedLib
                 catch (Exception ex)
                 {
                     LogError($"Failed to synchronize directory {sourceDir.FullName}", ex);
+                    success = false;
                 }
             }
+
+            var record = new BackupRecord
+            {
+                Timestamp = DateTime.Now,
+                Status = success ? "Success" : "Error",
+                Details = success ? null : "Backup completed with errors. Check logs."
+            };
+            BackupHistoryService.AddRecord(record);
         }
 
         private static void SynchronizeDirectory(DirectoryInfo source, DirectoryInfo destination)
