@@ -19,7 +19,7 @@ namespace ResguardoApp
             historyListBox.Items.Clear();
             foreach (var record in records)
             {
-                historyListBox.Items.Add(record);
+                historyListBox.Items.Add($"{record.Timestamp:u} | {record.Status} | {record.Details}");
             }
         }
 
