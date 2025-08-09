@@ -86,34 +86,38 @@ This project is a standard .NET WinForms application. You can build and run it u
 
 ### Manual Backup Execution
 
--   **Run on Service Start**: Edit `config.json` and set `forceBackupOnStart` to `true`. The service will execute a backup immediately after loading the configuration.
--   **Run On Demand**: Use the `ForceBackup` method exposed by the service to perform a backup at any time without waiting for the scheduled time.
- 
-### Running the Windows Service
+Backups run automatically based on the `backupTime` setting in `config.json`.  
+The service checks this value every minute and triggers a backup once per day
+after the scheduled time is reached.
 
-1.  **Build the service**:
-    ```sh
-    dotnet publish ResguardoAppService -c Release --self-contained true -r win-x64
+-   **Run on Service Start**: Edit `config.json` and set `forceBackupOnStart`
+    to `true`. The service will execute a backup immediately after loading the
+    configuration.
+-   **Run On Demand**: Use the `ForceBackup` method exposed by the service to
+    perform a backup at any time without waiting for the scheduled time.
+-   **Programmatic Trigger**:
+    ```csharp
+    using SharedLib;
+
+    var service = new ResguardoService();
+    service.ForceBackup();
     ```
-    The published files will be in `ResguardoAppService/bin/Release/net8.0-windows/win-x64/publish/`.
-2.  **Install the service** (run these commands from an elevated command prompt):
-    ```cmd
-    sc create ResguardoAppService binPath= "C:\\Path\\To\\ResguardoAppService.exe" start= auto
-    ```
-    Alternatively, you can use `InstallUtil.exe`:
-    ```cmd
-    InstallUtil.exe ResguardoAppService.exe
-    ```
-3.  **Configuration**: Place `config.json` in the same directory as `ResguardoAppService.exe`; the service reads its settings from this file.
-4.  **Logging**: Set the `RESGUARDO_LOG_PATH` environment variable before starting the service to override the default log location (`%ProgramData%/ResguardoApp/`).
-5.  **Start/Stop** the service:
-    ```cmd
-    sc start ResguardoAppService
-    sc stop ResguardoAppService
+-   **Command-Line Trigger** (PowerShell):
+    ```powershell
+    Add-Type -Path "path\\to\\SharedLib.dll"
+    $svc = New-Object SharedLib.ResguardoService
+    $svc.ForceBackup()
     ```
 
 ### Logging
 
-By default the service records errors in `%ProgramData%/ResguardoApp/error_resguardo_service.txt`. Set the `RESGUARDO_LOG_PATH` environment variable to change the log directory before launching the service.
+By default the service records errors in `%ProgramData%/ResguardoApp/error_resguardo_service.txt`.
+Set the `RESGUARDO_LOG_PATH` environment variable to change the log directory
+before launching the service.
+
+### Troubleshooting
+
+-   **Verify the service is running**: Use `services.msc` or run `sc query ResguardoAppService` from a command prompt.
+-   **Check log location**: Review `%ProgramData%/ResguardoApp/error_resguardo_service.txt` or the folder specified by `RESGUARDO_LOG_PATH`.
 
 **Important Note**: This is a Windows Forms application and can only be compiled and run on a Windows operating system.
