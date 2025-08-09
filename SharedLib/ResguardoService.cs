@@ -91,7 +91,9 @@ namespace SharedLib
             var now = DateTime.Now;
             var scheduled = now.Date.Add(backupTime);
 
-            if (now >= scheduled && (_lastBackupDate == null || _lastBackupDate.Value.Date < now.Date))
+            if (now.DayOfWeek == config.BackupDay &&
+                now >= scheduled &&
+                (_lastBackupDate == null || _lastBackupDate.Value.Date < now.Date))
             {
                 try
                 {

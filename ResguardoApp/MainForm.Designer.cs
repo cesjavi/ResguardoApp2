@@ -54,7 +54,9 @@ namespace ResguardoApp
             configPanel.Controls.Add(panel1);
             configPanel.Controls.Add(installServiceButton);
             configPanel.Controls.Add(portableDisksListBox);
+            configPanel.Controls.Add(backupDayComboBox);
             configPanel.Controls.Add(backupTimePicker);
+            configPanel.Controls.Add(label4);
             configPanel.Controls.Add(label3);
             configPanel.Controls.Add(applyConfigButton);
             configPanel.Controls.Add(removeFolderButton);
@@ -192,7 +194,27 @@ namespace ResguardoApp
             backupFoldersListBox.Name = "backupFoldersListBox";
             backupFoldersListBox.Size = new Size(600, 254);
             backupFoldersListBox.TabIndex = 2;
-            // 
+            //
+            // backupDayComboBox
+            //
+            backupDayComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            backupDayComboBox.FormattingEnabled = true;
+            backupDayComboBox.Items.AddRange(new object[] { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo" });
+            backupDayComboBox.Location = new Point(658, 180);
+            backupDayComboBox.Name = "backupDayComboBox";
+            backupDayComboBox.Size = new Size(170, 33);
+            backupDayComboBox.TabIndex = 13;
+            //
+            // label4
+            //
+            label4.AutoSize = true;
+            label4.ForeColor = Color.Coral;
+            label4.Location = new Point(658, 150);
+            label4.Name = "label4";
+            label4.Size = new Size(151, 25);
+            label4.TabIndex = 14;
+            label4.Text = "Día de Respaldo:";
+            //
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -224,5 +246,7 @@ namespace ResguardoApp
         private System.Windows.Forms.Panel configPanel;
         private Panel panel1;
         private ListBox backupFoldersListBox;
+        private ComboBox backupDayComboBox;
+        private Label label4;
     }
 }

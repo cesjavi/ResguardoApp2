@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace SharedLib
@@ -8,6 +9,7 @@ namespace SharedLib
         public DiscoRespaldoInfo? DiscoRespaldo { get; set; }
         public string? BackupTime { get; set; }
         public bool ForceBackupOnStart { get; set; }
+        public DayOfWeek BackupDay { get; set; } = DayOfWeek.Monday;
     }
 
     public class DiscoRespaldoInfo

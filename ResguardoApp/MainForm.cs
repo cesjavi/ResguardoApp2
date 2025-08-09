@@ -32,6 +32,7 @@ namespace ResguardoApp
             backupButton.Click += BackupButton_Click;
             installServiceButton.Click += InstallServiceButton_Click;
             backupTimePicker.ValueChanged += BackupTimePicker_ValueChanged;
+            backupDayComboBox.SelectedIndexChanged += BackupDayComboBox_SelectedIndexChanged;
         }
 
         private void InstallServiceButton_Click(object? sender, EventArgs e)
@@ -124,6 +125,9 @@ namespace ResguardoApp
                         backupTimePicker.Value = time;
                     }
                 }
+
+                var day = _currentConfig?.BackupDay ?? DayOfWeek.Monday;
+                backupDayComboBox.SelectedIndex = ((int)day + 6) % 7;
             }
             catch (Exception ex)
             {
@@ -138,6 +142,8 @@ namespace ResguardoApp
                 _currentConfig ??= new AppConfig();
                 _currentConfig.BackupFolders = backupFoldersListBox.Items.Cast<string>().ToList();
                 _currentConfig.BackupTime = backupTimePicker.Value.ToString("HH:mm");
+                var selectedIndex = backupDayComboBox.SelectedIndex < 0 ? 0 : backupDayComboBox.SelectedIndex;
+                _currentConfig.BackupDay = (DayOfWeek)((selectedIndex + 1) % 7);
 
                 Directory.CreateDirectory(_configDir);
                 var options = new JsonSerializerOptions { WriteIndented = true };
@@ -205,6 +211,11 @@ namespace ResguardoApp
         }
 
         private void BackupTimePicker_ValueChanged(object? sender, EventArgs e)
+        {
+            MarkConfigChanged();
+        }
+
+        private void BackupDayComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
             MarkConfigChanged();
         }
