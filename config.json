@@ -6,5 +6,6 @@
     "pnpDeviceID": ""
   },
   "backupTime": "02:00:00",
-  "forceBackupOnStart": false
+  "forceBackupOnStart": false,
+  "backupDay": 1
 }
