@@ -146,7 +146,9 @@ namespace ResguardoApp
             // backupTimePicker
             // 
             backupTimePicker.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            backupTimePicker.Format = DateTimePickerFormat.Time;
+            backupTimePicker.Format = DateTimePickerFormat.Custom;
+            backupTimePicker.CustomFormat = "HH:mm";
+            backupTimePicker.ShowUpDown = true;
             backupTimePicker.Location = new Point(658, 53);
             backupTimePicker.Margin = new Padding(4, 5, 4, 5);
             backupTimePicker.Name = "backupTimePicker";
