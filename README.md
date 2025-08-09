@@ -44,11 +44,38 @@ This project is a standard .NET WinForms application. You can build and run it u
 
 ### Manual Backup Execution
 
--   **Run on Service Start**: Edit `config.json` and set `forceBackupOnStart` to `true`. The service will execute a backup immediately after loading the configuration.
--   **Run On Demand**: Use the `ForceBackup` method exposed by the service to perform a backup at any time without waiting for the scheduled time.
+Backups run automatically based on the `backupTime` setting in `config.json`.  
+The service checks this value every minute and triggers a backup once per day
+after the scheduled time is reached.
+
+-   **Run on Service Start**: Edit `config.json` and set `forceBackupOnStart`
+    to `true`. The service will execute a backup immediately after loading the
+    configuration.
+-   **Run On Demand**: Use the `ForceBackup` method exposed by the service to
+    perform a backup at any time without waiting for the scheduled time.
+-   **Programmatic Trigger**:
+    ```csharp
+    using SharedLib;
+
+    var service = new ResguardoService();
+    service.ForceBackup();
+    ```
+-   **Command-Line Trigger** (PowerShell):
+    ```powershell
+    Add-Type -Path "path\\to\\SharedLib.dll"
+    $svc = New-Object SharedLib.ResguardoService
+    $svc.ForceBackup()
+    ```
 
 ### Logging
 
-By default the service records errors in `%ProgramData%/ResguardoApp/error_resguardo_service.txt`. Set the `RESGUARDO_LOG_PATH` environment variable to change the log directory before launching the service.
+By default the service records errors in `%ProgramData%/ResguardoApp/error_resguardo_service.txt`.
+Set the `RESGUARDO_LOG_PATH` environment variable to change the log directory
+before launching the service.
+
+### Troubleshooting
+
+-   **Verify the service is running**: Use `services.msc` or run `sc query ResguardoAppService` from a command prompt.
+-   **Check log location**: Review `%ProgramData%/ResguardoApp/error_resguardo_service.txt` or the folder specified by `RESGUARDO_LOG_PATH`.
 
 **Important Note**: This is a Windows Forms application and can only be compiled and run on a Windows operating system.
