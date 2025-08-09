@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 
 namespace SharedLib
 {
@@ -22,14 +23,43 @@ namespace SharedLib
             HistoryFile = Path.Combine(logDir, "backup_history.txt");
         }
 
-        public static IList<string> GetRecords()
+        public static void AddRecord(BackupRecord record)
+        {
+            var directory = Path.GetDirectoryName(HistoryFile);
+            if (!string.IsNullOrEmpty(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            var json = JsonSerializer.Serialize(record);
+            File.AppendAllText(HistoryFile, json + Environment.NewLine);
+        }
+
+        public static IList<BackupRecord> GetRecords()
         {
             if (!File.Exists(HistoryFile))
             {
-                return new List<string>();
+                return new List<BackupRecord>();
             }
 
-            return File.ReadAllLines(HistoryFile).ToList();
+            var records = new List<BackupRecord>();
+            foreach (var line in File.ReadLines(HistoryFile))
+            {
+                try
+                {
+                    var record = JsonSerializer.Deserialize<BackupRecord>(line);
+                    if (record != null)
+                    {
+                        records.Add(record);
+                    }
+                }
+                catch
+                {
+                    // Ignore malformed lines
+                }
+            }
+
+            return records;
         }
 
         public static void Clear()
