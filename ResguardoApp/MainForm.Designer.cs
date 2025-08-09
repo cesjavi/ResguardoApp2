@@ -32,6 +32,7 @@ namespace ResguardoApp
             configPanel = new Panel();
             detectDrivesButton = new Button();
             backupButton = new Button();
+            showHistoryButton = new Button();
             panel1 = new Panel();
             backupFoldersListBox = new ListBox();
             installServiceButton = new Button();
@@ -54,6 +55,7 @@ namespace ResguardoApp
             configPanel.BackColor = SystemColors.ActiveCaptionText;
             configPanel.Controls.Add(detectDrivesButton);
             configPanel.Controls.Add(backupButton);
+            configPanel.Controls.Add(showHistoryButton);
             configPanel.Controls.Add(panel1);
             configPanel.Controls.Add(installServiceButton);
             configPanel.Controls.Add(portableDisksListBox);
@@ -91,9 +93,20 @@ namespace ResguardoApp
             backupButton.TabIndex = 8;
             backupButton.Text = "Realizar Resguardo Manual";
             backupButton.UseVisualStyleBackColor = true;
-            // 
+            //
+            // showHistoryButton
+            //
+            showHistoryButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            showHistoryButton.Location = new Point(629, 440);
+            showHistoryButton.Margin = new Padding(4, 5, 4, 5);
+            showHistoryButton.Name = "showHistoryButton";
+            showHistoryButton.Size = new Size(226, 154);
+            showHistoryButton.TabIndex = 15;
+            showHistoryButton.Text = "Mostrar Historial";
+            showHistoryButton.UseVisualStyleBackColor = true;
+            //
             // panel1
-            // 
+            //
             panel1.BackColor = SystemColors.ControlDarkDark;
             panel1.Controls.Add(backupFoldersListBox);
             panel1.ForeColor = Color.Coral;
@@ -253,5 +266,6 @@ namespace ResguardoApp
         private ListBox backupFoldersListBox;
 
         private Label label4;
+        private System.Windows.Forms.Button showHistoryButton;
     }
 }
