@@ -12,6 +12,48 @@ ResguardoApp is a simple Windows Forms application for managing a list of folder
 -   **Perform Backup**: Synchronize the selected folders to a chosen removable drive. The backup process is incremental, only copying new or modified files.
 -   **Force Backup**: Set `forceBackupOnStart` in `config.json` to `true` to run a backup when the service starts, or call the service's public `ForceBackup` method to trigger a backup on demand.
 
+## Configuration File
+
+Both the desktop application and the Windows service read settings from a `config.json` file located next to their executables.
+
+### Fields
+
+- `backupFolders` (array of strings): Paths to the folders that will be backed up.
+- `discoRespaldo.letra` (string): Drive letter of the removable drive used for backups, such as `"E:\\"`.
+- `backupTime` (string): Time of day when the scheduled backup runs, expressed as `HH:mm:ss`.
+- `forceBackupOnStart` (boolean): When `true`, the service performs a backup immediately when it starts.
+
+### Examples
+
+**Multiple folders**
+
+```json
+{
+  "backupFolders": [
+    "C:\\Users\\Alice\\Documents",
+    "D:\\Projects"
+  ]
+}
+```
+
+**Change drive letter**
+
+```json
+{
+  "discoRespaldo": {
+    "letra": "F:\\"
+  }
+}
+```
+
+**Force backup on start**
+
+```json
+{
+  "forceBackupOnStart": true
+}
+```
+
 ## Requirements
 
 -   Windows Operating System
