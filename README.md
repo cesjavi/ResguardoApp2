@@ -46,6 +46,29 @@ This project is a standard .NET WinForms application. You can build and run it u
 
 -   **Run on Service Start**: Edit `config.json` and set `forceBackupOnStart` to `true`. The service will execute a backup immediately after loading the configuration.
 -   **Run On Demand**: Use the `ForceBackup` method exposed by the service to perform a backup at any time without waiting for the scheduled time.
+ 
+### Running the Windows Service
+
+1.  **Build the service**:
+    ```sh
+    dotnet publish ResguardoAppService -c Release --self-contained true -r win-x64
+    ```
+    The published files will be in `ResguardoAppService/bin/Release/net8.0-windows/win-x64/publish/`.
+2.  **Install the service** (run these commands from an elevated command prompt):
+    ```cmd
+    sc create ResguardoAppService binPath= "C:\\Path\\To\\ResguardoAppService.exe" start= auto
+    ```
+    Alternatively, you can use `InstallUtil.exe`:
+    ```cmd
+    InstallUtil.exe ResguardoAppService.exe
+    ```
+3.  **Configuration**: Place `config.json` in the same directory as `ResguardoAppService.exe`; the service reads its settings from this file.
+4.  **Logging**: Set the `RESGUARDO_LOG_PATH` environment variable before starting the service to override the default log location (`%ProgramData%/ResguardoApp/`).
+5.  **Start/Stop** the service:
+    ```cmd
+    sc start ResguardoAppService
+    sc stop ResguardoAppService
+    ```
 
 ### Logging
 
