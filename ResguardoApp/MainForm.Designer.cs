@@ -183,7 +183,7 @@ namespace ResguardoApp
             applyConfigButton.Name = "applyConfigButton";
             applyConfigButton.Size = new Size(171, 38);
             applyConfigButton.TabIndex = 4;
-            applyConfigButton.Text = "Aplicar Config.";
+            applyConfigButton.Text = "Guardar Config.";
             applyConfigButton.UseVisualStyleBackColor = true;
             // 
             // removeFolderButton
