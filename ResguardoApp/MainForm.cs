@@ -30,6 +30,7 @@ namespace ResguardoApp
             applyConfigButton.Click += ApplyConfigButton_Click;
             detectDrivesButton.Click += DetectDrivesButton_Click;
             backupButton.Click += BackupButton_Click;
+            showHistoryButton.Click += ShowHistoryButton_Click;
             installServiceButton.Click += InstallServiceButton_Click;
             backupTimePicker.ValueChanged += BackupTimePicker_ValueChanged;
             backupDayComboBox.SelectedIndexChanged += BackupDayComboBox_SelectedIndexChanged;
@@ -322,6 +323,12 @@ namespace ResguardoApp
 
             BackupService.PerformBackup(_currentConfig);
             MessageBox.Show("Respaldo completado.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void ShowHistoryButton_Click(object? sender, EventArgs e)
+        {
+            using var historyForm = new HistoryForm();
+            historyForm.ShowDialog(this);
         }
 
     }

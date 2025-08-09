@@ -2,76 +2,41 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 
 namespace SharedLib
 {
-    public class BackupRecord
-    {
-        public DateTime Timestamp { get; set; }
-        public string Status { get; set; } = string.Empty;
-        public string? Details { get; set; }
-    }
-
     public static class BackupHistoryService
     {
-        private static readonly string _historyFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "backup_history.json");
-        private static readonly string _logFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_resguardo_service.txt");
+        private static readonly string HistoryFile;
 
-        private static void LogError(string message, Exception? ex = null)
+        static BackupHistoryService()
         {
-            try
+            var logDir = Environment.GetEnvironmentVariable("RESGUARDO_LOG_PATH");
+            if (string.IsNullOrWhiteSpace(logDir))
             {
-                File.AppendAllText(_logFile,
-                    DateTime.Now + " - " + message + Environment.NewLine +
-                    (ex?.ToString() ?? string.Empty) + Environment.NewLine);
+                logDir = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                    "ResguardoApp");
             }
-            catch
-            {
-                // Swallow any exceptions from logging to avoid recursive failures
-            }
+
+            HistoryFile = Path.Combine(logDir, "backup_history.txt");
         }
 
-        public static void AddRecord(BackupRecord record)
+        public static IList<string> GetRecords()
         {
-            try
+            if (!File.Exists(HistoryFile))
             {
-                List<BackupRecord> records = new();
-                if (File.Exists(_historyFile))
-                {
-                    var json = File.ReadAllText(_historyFile);
-                    if (!string.IsNullOrWhiteSpace(json))
-                    {
-                        var existing = JsonSerializer.Deserialize<List<BackupRecord>>(json);
-                        if (existing != null)
-                            records = existing;
-                    }
-                }
-                records.Add(record);
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                File.WriteAllText(_historyFile, JsonSerializer.Serialize(records, options));
+                return new List<string>();
             }
-            catch (Exception ex)
-            {
-                LogError("Failed to add backup record", ex);
-            }
+
+            return File.ReadAllLines(HistoryFile).ToList();
         }
 
-        public static IEnumerable<BackupRecord> GetRecords()
+        public static void Clear()
         {
-            try
+            if (File.Exists(HistoryFile))
             {
-                if (!File.Exists(_historyFile))
-                    return Enumerable.Empty<BackupRecord>();
-
-                var json = File.ReadAllText(_historyFile);
-                var records = JsonSerializer.Deserialize<List<BackupRecord>>(json);
-                return records ?? Enumerable.Empty<BackupRecord>();
-            }
-            catch (Exception ex)
-            {
-                LogError("Failed to read backup history", ex);
-                return Enumerable.Empty<BackupRecord>();
+                File.Delete(HistoryFile);
             }
         }
     }
