@@ -99,6 +99,80 @@ namespace ResguardoApp
         private void MainForm_Load(object? sender, EventArgs e)
         {
             LoadConfiguration();
+            var drives = PopulateRemovableDrives();
+
+            var backupLetter = _currentConfig?.DiscoRespaldo?.Letra;
+            if (!string.IsNullOrEmpty(backupLetter))
+            {
+                var index = portableDisksListBox.Items.Cast<string>()
+                    .Select((item, idx) => new { item, idx })
+                    .FirstOrDefault(x => x.item.StartsWith(backupLetter, StringComparison.OrdinalIgnoreCase))?.idx ?? -1;
+
+                if (index >= 0)
+                {
+                    portableDisksListBox.SelectedIndex = index;
+                }
+                else if (drives.Any())
+                {
+                    var result = MessageBox.Show(
+                        "No se encontró el disco de respaldo configurado. ¿Desea registrar el nuevo disco como respaldo?",
+                        "Disco no encontrado",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        var newDrive = drives.First();
+                        var driveLetter = newDrive.Name.Replace("\\", string.Empty);
+                        _currentConfig ??= new AppConfig();
+                        _currentConfig.DiscoRespaldo = DiscoUtil.ObtenerInfoDeDisco(driveLetter);
+                        SaveConfiguration();
+
+                        var newIndex = portableDisksListBox.Items.Cast<string>()
+                            .Select((item, idx) => new { item, idx })
+                            .FirstOrDefault(x => x.item.StartsWith(newDrive.Name, StringComparison.OrdinalIgnoreCase))?.idx ?? -1;
+
+                        if (newIndex >= 0)
+                            portableDisksListBox.SelectedIndex = newIndex;
+                    }
+                }
+            }
+        }
+
+        private List<DriveInfo> PopulateRemovableDrives()
+        {
+            portableDisksListBox.Items.Clear();
+            var drives = new List<DriveInfo>();
+            try
+            {
+                drives = DriveInfo.GetDrives()
+                    .Where(d => d.DriveType == DriveType.Removable && d.IsReady)
+                    .ToList();
+
+                foreach (var drive in drives)
+                {
+                    var label = string.IsNullOrWhiteSpace(drive.VolumeLabel)
+                        ? "Sin etiqueta"
+                        : drive.VolumeLabel;
+                    portableDisksListBox.Items.Add($"{drive.Name} ({label})");
+                }
+
+                if (!drives.Any())
+                {
+                    portableDisksListBox.Items.Add("No se encontraron discos extraíbles.");
+                    portableDisksListBox.Enabled = false;
+                }
+                else
+                {
+                    portableDisksListBox.Enabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al detectar discos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return drives;
         }
 
         private AppConfig _currentConfig;
@@ -226,34 +300,7 @@ namespace ResguardoApp
 
         private void DetectDrivesButton_Click(object? sender, EventArgs e)
         {
-            portableDisksListBox.Items.Clear();
-            try
-            {
-                var drives = DriveInfo.GetDrives()
-                    .Where(d => d.DriveType == DriveType.Removable && d.IsReady);
-
-                foreach (var drive in drives)
-                {
-                    var label = string.IsNullOrWhiteSpace(drive.VolumeLabel)
-                        ? "Sin etiqueta"
-                        : drive.VolumeLabel;
-                    portableDisksListBox.Items.Add($"{drive.Name} ({label})");
-                }
-
-                if (!portableDisksListBox.Items.Cast<string>().Any())
-                {
-                    portableDisksListBox.Items.Add("No se encontraron discos extraíbles.");
-                    portableDisksListBox.Enabled = false;
-                }
-                else
-                {
-                    portableDisksListBox.Enabled = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al detectar discos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            PopulateRemovableDrives();
         }
 
         private async void BackupButton_Click(object? sender, EventArgs e)
