@@ -58,6 +58,8 @@ namespace ResguardoApp
                     ExecuteCommand($"sc create {serviceName} binPath= \"{exePath}\" start= auto");
                     MessageBox.Show("Servicio instalado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+
+                installServiceButton.Text = IsServiceInstalled(serviceName) ? "Desinstalar Servicio" : "Instalar Servicio";
             }
             catch (Exception ex)
             {
@@ -137,6 +139,8 @@ namespace ResguardoApp
                     }
                 }
             }
+
+            installServiceButton.Text = IsServiceInstalled("ResguardoAppService") ? "Desinstalar Servicio" : "Instalar Servicio";
         }
 
         private List<DriveInfo> PopulateRemovableDrives()
