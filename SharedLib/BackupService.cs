@@ -1,6 +1,9 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SharedLib
 {
@@ -24,26 +27,44 @@ namespace SharedLib
 
         public static void PerformBackup(AppConfig config)
         {
+            PerformBackupAsync(config, null, CancellationToken.None).GetAwaiter().GetResult();
+        }
+
+        public static async Task PerformBackupAsync(AppConfig config, IProgress<BackupProgress>? progress, CancellationToken cancellationToken)
+        {
             var sourceFolders = config.BackupFolders;
             if (!sourceFolders.Any())
             {
-                // In a service, we might want to log this instead of showing a message box.
                 return;
             }
 
             var discoRespaldo = config.DiscoRespaldo;
             if (discoRespaldo == null)
             {
-                // Can't proceed without a registered backup disk.
                 return;
             }
 
             var driveLetter = discoRespaldo.Letra.Replace("\\", "").ToUpper();
             var destinationRoot = Path.Combine($"{driveLetter}\\", "ResguardoApp");
 
+            long totalBytes = 0;
+            foreach (var folder in sourceFolders)
+            {
+                var dir = new DirectoryInfo(folder);
+                if (dir.Exists)
+                {
+                    totalBytes += CalculateDirectorySize(dir);
+                }
+            }
+
+            var progressData = new BackupProgress { TotalBytes = totalBytes, ProcessedBytes = 0 };
+            var stopwatch = Stopwatch.StartNew();
+
             var success = true;
             foreach (var sourceFolder in sourceFolders)
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 var sourceDir = new DirectoryInfo(sourceFolder);
                 if (!sourceDir.Exists)
                 {
@@ -58,7 +79,11 @@ namespace SharedLib
 
                 try
                 {
-                    SynchronizeDirectory(sourceDir, destDir);
+                    await SynchronizeDirectory(sourceDir, destDir, progressData, progress, stopwatch, cancellationToken);
+                }
+                catch (OperationCanceledException)
+                {
+                    throw;
                 }
                 catch (Exception ex)
                 {
@@ -67,19 +92,41 @@ namespace SharedLib
                 }
             }
 
+            stopwatch.Stop();
+
             var record = new BackupRecord
             {
                 Timestamp = DateTime.Now,
                 Status = success ? "Success" : "Error",
-                Details = success ? null : "Backup completed with errors. Check logs."
+                Details = success ? null : "Backup completed with errors. Check logs.",
             };
             BackupHistoryService.AddRecord(record);
         }
 
-        private static void SynchronizeDirectory(DirectoryInfo source, DirectoryInfo destination)
+        private static long CalculateDirectorySize(DirectoryInfo directory)
+        {
+            long size = 0;
+            try
+            {
+                size += directory.GetFiles().Sum(f => f.Length);
+                foreach (var dir in directory.GetDirectories())
+                {
+                    size += CalculateDirectorySize(dir);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogError($"Failed to calculate directory size for {directory.FullName}", ex);
+            }
+            return size;
+        }
+
+        private static async Task SynchronizeDirectory(DirectoryInfo source, DirectoryInfo destination, BackupProgress progressData, IProgress<BackupProgress>? progress, Stopwatch stopwatch, CancellationToken cancellationToken)
         {
             foreach (var sourceFile in source.GetFiles())
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 var destinationFile = new FileInfo(Path.Combine(destination.FullName, sourceFile.Name));
                 if (!destinationFile.Exists || sourceFile.LastWriteTime > destinationFile.LastWriteTime)
                 {
@@ -92,10 +139,26 @@ namespace SharedLib
                         LogError($"Failed to copy file {sourceFile.FullName}", ex);
                     }
                 }
+
+                progressData.ProcessedBytes += sourceFile.Length;
+                if (progressData.ProcessedBytes > 0 && progressData.TotalBytes > 0)
+                {
+                    var elapsed = stopwatch.Elapsed;
+                    var estimatedTotal = TimeSpan.FromTicks((long)(elapsed.Ticks * (double)progressData.TotalBytes / progressData.ProcessedBytes));
+                    progressData.EstimatedTimeRemaining = estimatedTotal - elapsed;
+                }
+                progress?.Report(new BackupProgress
+                {
+                    TotalBytes = progressData.TotalBytes,
+                    ProcessedBytes = progressData.ProcessedBytes,
+                    EstimatedTimeRemaining = progressData.EstimatedTimeRemaining
+                });
             }
 
             foreach (var sourceSubDir in source.GetDirectories())
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 var destinationSubDir = new DirectoryInfo(Path.Combine(destination.FullName, sourceSubDir.Name));
                 if (!destinationSubDir.Exists)
                 {
@@ -103,7 +166,11 @@ namespace SharedLib
                 }
                 try
                 {
-                    SynchronizeDirectory(sourceSubDir, destinationSubDir);
+                    await SynchronizeDirectory(sourceSubDir, destinationSubDir, progressData, progress, stopwatch, cancellationToken);
+                }
+                catch (OperationCanceledException)
+                {
+                    throw;
                 }
                 catch (Exception ex)
                 {

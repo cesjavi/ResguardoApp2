@@ -6,6 +6,8 @@ using System.IO;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -254,17 +256,17 @@ namespace ResguardoApp
             }
         }
 
-        private void BackupButton_Click(object? sender, EventArgs e)
+        private async void BackupButton_Click(object? sender, EventArgs e)
         {
-            PerformBackup();
+            await PerformBackupAsync();
         }
 
-        private void RestoreButton_Click(object? sender, EventArgs e)
+        private async void RestoreButton_Click(object? sender, EventArgs e)
         {
-            PerformRestore();
+            await PerformRestoreAsync();
         }
 
-        private void PerformBackup()
+        private async Task PerformBackupAsync()
         {
             if (_currentConfig == null)
             {
@@ -272,7 +274,6 @@ namespace ResguardoApp
                 return;
             }
 
-            // Asegurarse de que el disco de respaldo está seleccionado y es el correcto
             if (portableDisksListBox.SelectedItem == null)
             {
                 MessageBox.Show("Seleccione un disco de respaldo antes de continuar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -327,11 +328,31 @@ namespace ResguardoApp
                 }
             }
 
-            BackupService.PerformBackup(_currentConfig);
-            MessageBox.Show("Respaldo completado.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using var progressForm = new ProgressForm("Respaldo en progreso");
+            var progress = new Progress<BackupProgress>(p => progressForm.UpdateProgress(p));
+            progressForm.Show(this);
+            var start = DateTime.Now;
+            try
+            {
+                await Task.Run(() => BackupService.PerformBackupAsync(_currentConfig, progress, progressForm.CancellationToken));
+                var duration = DateTime.Now - start;
+                MessageBox.Show($"Respaldo completado en {duration:hh\\:mm\\:ss}.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (OperationCanceledException)
+            {
+                MessageBox.Show("Respaldo cancelado.", "Cancelado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al realizar el respaldo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                progressForm.Close();
+            }
         }
 
-        private void PerformRestore()
+        private async Task PerformRestoreAsync()
         {
             if (_currentConfig == null)
             {
@@ -339,7 +360,6 @@ namespace ResguardoApp
                 return;
             }
 
-            // Asegurarse de que el disco de respaldo está seleccionado y es el correcto
             if (portableDisksListBox.SelectedItem == null)
             {
                 MessageBox.Show("Seleccione un disco de respaldo antes de continuar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -394,14 +414,27 @@ namespace ResguardoApp
                 }
             }
 
+            using var progressForm = new ProgressForm("Restauración en progreso");
+            var progress = new Progress<BackupProgress>(p => progressForm.UpdateProgress(p));
+            progressForm.Show(this);
+            var start = DateTime.Now;
             try
             {
-                RestoreService.PerformRestore(_currentConfig);
-                MessageBox.Show("Restauración completada.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                await Task.Run(() => RestoreService.PerformRestoreAsync(_currentConfig, progress, progressForm.CancellationToken));
+                var duration = DateTime.Now - start;
+                MessageBox.Show($"Restauración completada en {duration:hh\\:mm\\:ss}.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (OperationCanceledException)
+            {
+                MessageBox.Show("Restauración cancelada.", "Cancelado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al restaurar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                progressForm.Close();
             }
         }
 
