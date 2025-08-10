@@ -30,6 +30,7 @@ namespace ResguardoApp
             applyConfigButton.Click += ApplyConfigButton_Click;
             detectDrivesButton.Click += DetectDrivesButton_Click;
             backupButton.Click += BackupButton_Click;
+            restoreButton.Click += RestoreButton_Click;
             showHistoryButton.Click += ShowHistoryButton_Click;
             installServiceButton.Click += InstallServiceButton_Click;
             backupTimePicker.ValueChanged += BackupTimePicker_ValueChanged;
@@ -258,6 +259,11 @@ namespace ResguardoApp
             PerformBackup();
         }
 
+        private void RestoreButton_Click(object? sender, EventArgs e)
+        {
+            PerformRestore();
+        }
+
         private void PerformBackup()
         {
             if (_currentConfig == null)
@@ -323,6 +329,80 @@ namespace ResguardoApp
 
             BackupService.PerformBackup(_currentConfig);
             MessageBox.Show("Respaldo completado.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void PerformRestore()
+        {
+            if (_currentConfig == null)
+            {
+                MessageBox.Show("La configuración no ha sido cargada o guardada.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Asegurarse de que el disco de respaldo está seleccionado y es el correcto
+            if (portableDisksListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione un disco de respaldo antes de continuar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var selectedDriveItem = portableDisksListBox.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(selectedDriveItem))
+            {
+                MessageBox.Show("Seleccione un disco de respaldo válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var drive = DriveInfo.GetDrives()
+                .FirstOrDefault(d => selectedDriveItem.StartsWith(d.Name, StringComparison.OrdinalIgnoreCase));
+
+            if (drive == null)
+            {
+                MessageBox.Show("Seleccione un disco de respaldo válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var driveLetter = drive.Name.Replace("\\", "").ToUpper();
+            var actual = DiscoUtil.ObtenerInfoDeDisco(driveLetter);
+
+            var discoRespaldo = _currentConfig.DiscoRespaldo;
+            if (discoRespaldo == null)
+            {
+                _currentConfig.DiscoRespaldo = actual;
+                SaveConfiguration();
+                MessageBox.Show("Disco de respaldo registrado. Ahora puede realizar la restauración.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else
+            {
+                bool serialMatch = string.Equals(
+                    discoRespaldo.VolumeSerialNumber,
+                    actual.VolumeSerialNumber,
+                    StringComparison.OrdinalIgnoreCase);
+
+                bool pnpMatch = true;
+                if (!string.IsNullOrEmpty(discoRespaldo.PNPDeviceID) &&
+                    !string.IsNullOrEmpty(actual.PNPDeviceID))
+                {
+                    pnpMatch = discoRespaldo.PNPDeviceID == actual.PNPDeviceID;
+                }
+
+                if (!serialMatch || !pnpMatch)
+                {
+                    MessageBox.Show("El disco seleccionado no coincide con el disco de respaldo registrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            try
+            {
+                RestoreService.PerformRestore(_currentConfig);
+                MessageBox.Show("Restauración completada.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al restaurar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ShowHistoryButton_Click(object? sender, EventArgs e)
