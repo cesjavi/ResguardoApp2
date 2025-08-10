@@ -55,6 +55,7 @@ namespace ResguardoApp
             configPanel.BackColor = SystemColors.ActiveCaptionText;
             configPanel.Controls.Add(detectDrivesButton);
             configPanel.Controls.Add(backupButton);
+            configPanel.Controls.Add(restoreButton);
             configPanel.Controls.Add(showHistoryButton);
             configPanel.Controls.Add(panel1);
             configPanel.Controls.Add(installServiceButton);
@@ -94,14 +95,25 @@ namespace ResguardoApp
             backupButton.Text = "Realizar Resguardo Manual";
             backupButton.UseVisualStyleBackColor = true;
             //
+            // restoreButton
+            //
+            restoreButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            restoreButton.Location = new Point(629, 440);
+            restoreButton.Margin = new Padding(4, 5, 4, 5);
+            restoreButton.Name = "restoreButton";
+            restoreButton.Size = new Size(226, 154);
+            restoreButton.TabIndex = 15;
+            restoreButton.Text = "Restaurar Resguardo";
+            restoreButton.UseVisualStyleBackColor = true;
+            //
             // showHistoryButton
             //
             showHistoryButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            showHistoryButton.Location = new Point(629, 440);
+            showHistoryButton.Location = new Point(629, 314);
             showHistoryButton.Margin = new Padding(4, 5, 4, 5);
             showHistoryButton.Name = "showHistoryButton";
             showHistoryButton.Size = new Size(226, 154);
-            showHistoryButton.TabIndex = 15;
+            showHistoryButton.TabIndex = 16;
             showHistoryButton.Text = "Mostrar Historial";
             showHistoryButton.UseVisualStyleBackColor = true;
             //
@@ -266,6 +278,7 @@ namespace ResguardoApp
         private ListBox backupFoldersListBox;
 
         private Label label4;
+        private System.Windows.Forms.Button restoreButton;
         private System.Windows.Forms.Button showHistoryButton;
     }
 }
