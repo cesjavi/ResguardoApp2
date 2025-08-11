@@ -156,6 +156,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "System.Management": "9.0.7",
           "System.ServiceProcess.ServiceController": "6.0.0",
           "System.Text.Json": "9.0.8"
         },

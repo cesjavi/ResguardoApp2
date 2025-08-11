@@ -7,15 +7,28 @@
       "RelativeMoniker": "D:0:0:{9F2338E4-819D-416D-933F-5863202DF3EA}|ResguardoApp\\ResguardoApp.csproj|solutionrelative:resguardoapp\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\cesar\\AppData\\Local\\SourceServer\\d4bc34cb26ac43407fb63e88e2acb70539a45b70d60a04b6e1eed732cd1a16d4\\ResguardoApp\\MainForm.Designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9F2338E4-819D-416D-933F-5863202DF3EA}|ResguardoApp\\ResguardoApp.csproj|d:\\sistemas\\resguardoapp2\\resguardoapp\\historyform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F2338E4-819D-416D-933F-5863202DF3EA}|ResguardoApp\\ResguardoApp.csproj|solutionrelative:resguardoapp\\historyform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45C77D52-6BC5-442E-B2A3-DD95BEEE338D}|SharedLib\\SharedLib.csproj|d:\\sistemas\\resguardoapp2\\sharedlib\\backuphistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45C77D52-6BC5-442E-B2A3-DD95BEEE338D}|SharedLib\\SharedLib.csproj|solutionrelative:sharedlib\\backuphistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9F2338E4-819D-416D-933F-5863202DF3EA}|ResguardoApp\\ResguardoApp.csproj|d:\\sistemas\\resguardoapp2\\resguardoapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9F2338E4-819D-416D-933F-5863202DF3EA}|ResguardoApp\\ResguardoApp.csproj|solutionrelative:resguardoapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9F2338E4-819D-416D-933F-5863202DF3EA}|ResguardoApp\\ResguardoApp.csproj|d:\\sistemas\\resguardoapp2\\resguardoapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{9F2338E4-819D-416D-933F-5863202DF3EA}|ResguardoApp\\ResguardoApp.csproj|D:\\sistemas\\ResguardoApp2\\resguardoapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{9F2338E4-819D-416D-933F-5863202DF3EA}|ResguardoApp\\ResguardoApp.csproj|solutionrelative:resguardoapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F2338E4-819D-416D-933F-5863202DF3EA}|ResguardoApp\\ResguardoApp.csproj|D:\\sistemas\\ResguardoApp2\\resguardoapp\\historyform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{9F2338E4-819D-416D-933F-5863202DF3EA}|ResguardoApp\\ResguardoApp.csproj|solutionrelative:resguardoapp\\historyform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45C77D52-6BC5-442E-B2A3-DD95BEEE338D}|SharedLib\\SharedLib.csproj|d:\\sistemas\\resguardoapp2\\sharedlib\\backupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45C77D52-6BC5-442E-B2A3-DD95BEEE338D}|SharedLib\\SharedLib.csproj|solutionrelative:sharedlib\\backupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9F2338E4-819D-416D-933F-5863202DF3EA}|ResguardoApp\\ResguardoApp.csproj|d:\\sistemas\\resguardoapp2\\resguardoapp\\resguardoapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -29,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -45,56 +58,91 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MainForm.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\cesar\\AppData\\Local\\SourceServer\\d4bc34cb26ac43407fb63e88e2acb70539a45b70d60a04b6e1eed732cd1a16d4\\ResguardoApp\\MainForm.Designer.cs",
-              "ToolTip": "C:\\Users\\cesar\\AppData\\Local\\SourceServer\\d4bc34cb26ac43407fb63e88e2acb70539a45b70d60a04b6e1eed732cd1a16d4\\ResguardoApp\\MainForm.Designer.cs",
-              "ViewState": "AgIAALIAAAAAAAAAAAApwMcAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-09T04:41:29.38Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "MainForm.Designer.cs",
               "DocumentMoniker": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\MainForm.Designer.cs",
               "RelativeDocumentMoniker": "ResguardoApp\\MainForm.Designer.cs",
               "ToolTip": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\MainForm.Designer.cs",
               "RelativeToolTip": "ResguardoApp\\MainForm.Designer.cs",
-              "ViewState": "AgIAAL4AAAAAAAAAAAApwNMAAAAOAAAAAAAAAA==",
+              "ViewState": "AgIAAE8AAAAAAAAAAAApwF4AAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-09T04:37:44.041Z",
+              "WhenOpened": "2025-08-10T06:40:04.265Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "HistoryForm.cs [Design]",
+              "DocumentMoniker": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\HistoryForm.cs",
+              "RelativeDocumentMoniker": "ResguardoApp\\HistoryForm.cs",
+              "ToolTip": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\HistoryForm.cs [Design]",
+              "RelativeToolTip": "ResguardoApp\\HistoryForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-09T06:43:01.775Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HistoryForm.cs",
+              "DocumentMoniker": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\HistoryForm.cs",
+              "RelativeDocumentMoniker": "ResguardoApp\\HistoryForm.cs",
+              "ToolTip": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\HistoryForm.cs",
+              "RelativeToolTip": "ResguardoApp\\HistoryForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-09T06:41:16.094Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "BackupHistoryService.cs",
+              "DocumentMoniker": "D:\\sistemas\\ResguardoApp2\\SharedLib\\BackupHistoryService.cs",
+              "RelativeDocumentMoniker": "SharedLib\\BackupHistoryService.cs",
+              "ToolTip": "D:\\sistemas\\ResguardoApp2\\SharedLib\\BackupHistoryService.cs",
+              "RelativeToolTip": "SharedLib\\BackupHistoryService.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAawCcAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-09T06:39:21.131Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BackupService.cs",
+              "DocumentMoniker": "D:\\sistemas\\ResguardoApp2\\SharedLib\\BackupService.cs",
+              "RelativeDocumentMoniker": "SharedLib\\BackupService.cs",
+              "ToolTip": "D:\\sistemas\\ResguardoApp2\\SharedLib\\BackupService.cs",
+              "RelativeToolTip": "SharedLib\\BackupService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADkAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-09T06:38:20.042Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "MainForm.cs",
               "DocumentMoniker": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\MainForm.cs",
               "RelativeDocumentMoniker": "ResguardoApp\\MainForm.cs",
               "ToolTip": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\MainForm.cs",
               "RelativeToolTip": "ResguardoApp\\MainForm.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAC8BAAAAAAAAAAD4v0oBAABOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-09T04:39:11.946Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "MainForm.cs [Design]",
               "DocumentMoniker": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\MainForm.cs",
               "RelativeDocumentMoniker": "ResguardoApp\\MainForm.cs",
               "ToolTip": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\MainForm.cs [Design]",
               "RelativeToolTip": "ResguardoApp\\MainForm.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-09T04:01:27.929Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-08-09T04:01:27.929Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "ResguardoApp.csproj",
               "DocumentMoniker": "D:\\sistemas\\ResguardoApp2\\ResguardoApp\\ResguardoApp.csproj",
               "RelativeDocumentMoniker": "ResguardoApp\\ResguardoApp.csproj",

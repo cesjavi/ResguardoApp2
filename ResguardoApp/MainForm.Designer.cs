@@ -7,6 +7,7 @@ namespace ResguardoApp
         /// </summary>
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.ComboBox backupDayComboBox;
+        private System.Windows.Forms.Button restoreButton; 
 
         /// <summary>
         /// Clean up any resources being used.
@@ -47,6 +48,7 @@ namespace ResguardoApp
             label1 = new Label();
             configPanel.SuspendLayout();
             panel1.SuspendLayout();
+            restoreButton = new Button();
             SuspendLayout();
             // 
             // configPanel
@@ -277,8 +279,7 @@ namespace ResguardoApp
         private Panel panel1;
         private ListBox backupFoldersListBox;
 
-        private Label label4;
-        private System.Windows.Forms.Button restoreButton;
+        private Label label4;        
         private System.Windows.Forms.Button showHistoryButton;
     }
 }

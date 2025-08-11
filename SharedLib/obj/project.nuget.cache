@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "D1rSsiy1vlY=",
+  "dgSpecHash": "Tt/FdrKXRs8=",
   "success": true,
   "projectFilePath": "D:\\sistemas\\ResguardoApp2\\SharedLib\\SharedLib.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\cesar\\.nuget\\packages\\system.codedom\\9.0.7\\system.codedom.9.0.7.nupkg.sha512",
     "C:\\Users\\cesar\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512",
     "C:\\Users\\cesar\\.nuget\\packages\\system.io.pipelines\\9.0.8\\system.io.pipelines.9.0.8.nupkg.sha512",
+    "C:\\Users\\cesar\\.nuget\\packages\\system.management\\9.0.7\\system.management.9.0.7.nupkg.sha512",
     "C:\\Users\\cesar\\.nuget\\packages\\system.serviceprocess.servicecontroller\\6.0.0\\system.serviceprocess.servicecontroller.6.0.0.nupkg.sha512",
     "C:\\Users\\cesar\\.nuget\\packages\\system.text.encodings.web\\9.0.8\\system.text.encodings.web.9.0.8.nupkg.sha512",
     "C:\\Users\\cesar\\.nuget\\packages\\system.text.json\\9.0.8\\system.text.json.9.0.8.nupkg.sha512",
