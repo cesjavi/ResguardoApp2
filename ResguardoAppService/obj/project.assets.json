@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net8.0-windows7.0": {
-      "Microsoft.NET.ILLink.Tasks/8.0.18": {
+      "Microsoft.NET.ILLink.Tasks/8.0.19": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -19,6 +19,22 @@
           "lib/net6.0/Newtonsoft.Json.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "System.CodeDom/9.0.7": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Diagnostics.EventLog/6.0.0": {
@@ -61,6 +77,31 @@
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "System.Management/9.0.7": {
+        "type": "package",
+        "dependencies": {
+          "System.CodeDom": "9.0.7"
+        },
+        "compile": {
+          "lib/net8.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net8.0/System.Management.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
         }
       },
       "System.ServiceProcess.ServiceController/6.0.0": {
@@ -134,6 +175,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "System.Management": "9.0.7",
           "System.ServiceProcess.ServiceController": "6.0.0",
           "System.Text.Json": "9.0.8"
         },
@@ -146,7 +188,7 @@
       }
     },
     "net8.0-windows7.0/win-x64": {
-      "Microsoft.NET.ILLink.Tasks/8.0.18": {
+      "Microsoft.NET.ILLink.Tasks/8.0.19": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -163,6 +205,22 @@
           "lib/net6.0/Newtonsoft.Json.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "System.CodeDom/9.0.7": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Diagnostics.EventLog/6.0.0": {
@@ -191,6 +249,25 @@
         },
         "runtime": {
           "lib/net8.0/System.IO.Pipelines.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "System.Management/9.0.7": {
+        "type": "package",
+        "dependencies": {
+          "System.CodeDom": "9.0.7"
+        },
+        "compile": {
+          "lib/net8.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/win/lib/net8.0/System.Management.dll": {
             "related": ".xml"
           }
         },
@@ -257,6 +334,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "System.Management": "9.0.7",
           "System.ServiceProcess.ServiceController": "6.0.0",
           "System.Text.Json": "9.0.8"
         },
@@ -270,10 +348,10 @@
     }
   },
   "libraries": {
-    "Microsoft.NET.ILLink.Tasks/8.0.18": {
-      "sha512": "OiXqr2YIBEV9dsAWEtasK470ALyJ0VxJ9k4MotOxlWV6HeEgrJKYMW4HHj1OCCXvqE0/A25wEKPkpfiBARgDZA==",
+    "Microsoft.NET.ILLink.Tasks/8.0.19": {
+      "sha512": "IhHf+zeZiaE5EXRyxILd4qM+Hj9cxV3sa8MpzZgeEhpvaG3a1VEGF6UCaPFLO44Kua3JkLKluE0SWVamS50PlA==",
       "type": "package",
-      "path": "microsoft.net.illink.tasks/8.0.18",
+      "path": "microsoft.net.illink.tasks/8.0.19",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -287,7 +365,7 @@
         "build/Microsoft.NET.ILLink.Analyzers.props",
         "build/Microsoft.NET.ILLink.Tasks.props",
         "build/Microsoft.NET.ILLink.targets",
-        "microsoft.net.illink.tasks.8.0.18.nupkg.sha512",
+        "microsoft.net.illink.tasks.8.0.19.nupkg.sha512",
         "microsoft.net.illink.tasks.nuspec",
         "tools/net472/ILLink.Tasks.dll",
         "tools/net472/ILLink.Tasks.dll.config",
@@ -351,6 +429,34 @@
         "packageIcon.png"
       ]
     },
+    "System.CodeDom/9.0.7": {
+      "sha512": "skI5aEl6XbZelP1hZvSmzzm3mM98k22x19Zu1Lf4rmuYoFEMJr7s7Te/MWUk9twjz4utyXt3q3pYXxGxI/Y+zA==",
+      "type": "package",
+      "path": "system.codedom/9.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.CodeDom.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.CodeDom.targets",
+        "lib/net462/System.CodeDom.dll",
+        "lib/net462/System.CodeDom.xml",
+        "lib/net8.0/System.CodeDom.dll",
+        "lib/net8.0/System.CodeDom.xml",
+        "lib/net9.0/System.CodeDom.dll",
+        "lib/net9.0/System.CodeDom.xml",
+        "lib/netstandard2.0/System.CodeDom.dll",
+        "lib/netstandard2.0/System.CodeDom.xml",
+        "system.codedom.9.0.7.nupkg.sha512",
+        "system.codedom.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "System.Diagnostics.EventLog/6.0.0": {
       "sha512": "lcyUiXTsETK2ALsZrX+nWuHSIQeazhqPphLfaRxzdGaG93+0kELqpgEHtwWOlQe7+jSFnKwaCAgL4kjeZCQJnw==",
       "type": "package",
@@ -407,6 +513,35 @@
         "lib/netstandard2.0/System.IO.Pipelines.xml",
         "system.io.pipelines.9.0.8.nupkg.sha512",
         "system.io.pipelines.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Management/9.0.7": {
+      "sha512": "9wHNgKnZRFLZ/vSQ7+Ai9LrKkxEKh9LvC+Ta5dwQgPsyni0ET5igPATg01WW4bx/E5Q3VtRgEGithhOXaKIh0A==",
+      "type": "package",
+      "path": "system.management/9.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Management.targets",
+        "lib/net462/_._",
+        "lib/net8.0/System.Management.dll",
+        "lib/net8.0/System.Management.xml",
+        "lib/net9.0/System.Management.dll",
+        "lib/net9.0/System.Management.xml",
+        "lib/netstandard2.0/System.Management.dll",
+        "lib/netstandard2.0/System.Management.xml",
+        "runtimes/win/lib/net8.0/System.Management.dll",
+        "runtimes/win/lib/net8.0/System.Management.xml",
+        "runtimes/win/lib/net9.0/System.Management.dll",
+        "runtimes/win/lib/net9.0/System.Management.xml",
+        "system.management.9.0.7.nupkg.sha512",
+        "system.management.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
@@ -554,7 +689,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
-      "Microsoft.NET.ILLink.Tasks >= 8.0.18",
+      "Microsoft.NET.ILLink.Tasks >= 8.0.19",
       "Newtonsoft.Json >= 13.0.3",
       "SharedLib >= 1.0.0",
       "System.ServiceProcess.ServiceController >= 6.0.0"
@@ -618,7 +753,7 @@
           "Microsoft.NET.ILLink.Tasks": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[8.0.18, )",
+            "version": "[8.0.19, )",
             "autoReferenced": true
           },
           "Newtonsoft.Json": {
@@ -643,32 +778,20 @@
         "warn": true,
         "downloadDependencies": [
           {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.18, 8.0.18]"
-          },
-          {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-            "version": "[8.0.18, 8.0.18]"
+            "version": "[8.0.19, 8.0.19]"
           },
           {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[8.0.18, 8.0.18]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.18, 8.0.18]"
+            "name": "Microsoft.NETCore.App.Crossgen2.win-x64",
+            "version": "[8.0.19, 8.0.19]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x64",
-            "version": "[8.0.18, 8.0.18]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[8.0.18, 8.0.18]"
+            "version": "[8.0.19, 8.0.19]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-            "version": "[8.0.18, 8.0.18]"
+            "version": "[8.0.19, 8.0.19]"
           }
         ],
         "frameworkReferences": {
@@ -676,7 +799,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {
